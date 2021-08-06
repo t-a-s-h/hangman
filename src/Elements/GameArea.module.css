@@ -1,0 +1,82 @@
+#Guesses {
+    width: auto;
+    margin: auto;
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+#Guesses > div {
+    /* align-self: flex-end; */
+}
+
+
+#word_display {
+    text-align: center;
+    margin-block: 2rem;
+    /* font: 3rem monospace */
+}
+
+#word_display > span {
+    display: inline-block;
+    margin: 0.25rem;
+    font: 3rem pen;
+    width: 1.25ch;
+    height: 1ch;
+}
+
+#letters > button {
+    all: unset;
+    font: 2rem pen;
+    margin: 0.5rem;
+    padding: 0.2rem;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background: transparent;
+    border: 0.12rem solid rgb(var(--pen-color));
+    color: rgb(var(--pen-color));
+}
+
+#letters > button:disabled::before {
+    content: '';
+    /* top: 0;
+    left: 0; */
+    /* height: 2rem; */
+    width: 3.2rem;
+    border-top: 0.12rem solid rgb(var(--pen-color));
+    transform:
+        translateY(1rem)
+        translateX(-1.3rem)
+        rotate(-45deg); ;;
+    position: absolute;
+
+    /* color: rgba(var(--pen-color),0.5);
+    text-decoration: rgb(var(--pen-color)); */
+}
+
+#letters > button:hover:not(:disabled), #letters > button:focus/*:not(:disabled)*/ {
+    border: 0.12rem solid rgb(var(--pen-color));
+    background: rgba(var(--pen-color));
+    color: ivory;
+}
+
+object {
+    position: relative;
+    float: left;
+  }
+
+  @keyframes dash {
+    from {
+       stroke-dashoffset: 71;
+    }
+     to {
+       stroke-dashoffset: 0;
+     }
+   }
+ 
+ .path {
+     stroke-dasharray: 71 !important;
+     animation: dash 200ms linear forwards !important;
+   }

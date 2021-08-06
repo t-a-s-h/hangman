@@ -17,9 +17,7 @@ body {
 
 body, .App{
   height: 100%;
-  padding: 0;
-  margin: 0;
-  /* width: 100%; */
+  width: 100%;
 }
 
 :root, #root {
@@ -28,10 +26,6 @@ body, .App{
 
 .App {
   display: flex;
-}
-
-.App:focus {
-    outline: none;
 }
 
 #Splash {
@@ -62,14 +56,4 @@ body, .App{
     /* background: red; */
     /* display: none; */
     /* animation: fade-out 12s ease-out forwards; */
-}
-
-/* svg > circle {
-    position: relative;
-} */
-
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
 }

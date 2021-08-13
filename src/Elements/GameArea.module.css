@@ -8,7 +8,7 @@
 }
 
 #Guesses > div {
-    /* align-self: flex-end; */
+    position: relative;
 }
 
 
@@ -26,12 +26,19 @@
     height: 1ch;
 }
 
-#letters > button {
+#letters {
+    margin-bottom: 2rem;
+}
+
+button {
     all: unset;
     font: 2rem pen;
     margin: 0.5rem;
     padding: 0.2rem;
     height: 2rem;
+}
+
+#letters > button {
     width: 2rem;
     border-radius: 50%;
     background: transparent;
@@ -51,12 +58,11 @@
         translateX(-1.3rem)
         rotate(-45deg); ;;
     position: absolute;
-
     /* color: rgba(var(--pen-color),0.5);
     text-decoration: rgb(var(--pen-color)); */
 }
 
-#letters > button:hover:not(:disabled), #letters > button:focus/*:not(:disabled)*/ {
+#letters > button:hover:not(:disabled), #letters > button:hover/*:not(:disabled)*/ {
     border: 0.12rem solid rgb(var(--pen-color));
     background: rgba(var(--pen-color));
     color: ivory;
@@ -67,6 +73,67 @@ object {
     float: left;
   }
 
+.path {
+    stroke-dasharray: 71 !important;
+    animation: dash 200ms linear forwards !important;
+}
+
+#gameOverBtn {
+    font: 2rem pen;
+    background: rgb(var(--pen-color));
+    color: ivory;
+    border-radius: 1.5rem;
+    padding: 0.5rem;
+    border: 0.12rem solid rgb(var(--pen-color));
+}
+
+#gameOverBtn:hover {
+    background: transparent;
+    color: rgb(var(--pen-color));
+}
+
+#winLose {
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    /* width: 200%; */
+    transform: rotate(-10deg);
+    transform-origin: left;
+    z-index: 1000;
+}
+
+#winLose > span {
+    position: relative;
+    left: -50%;
+    margin: auto;
+    top: -20%;
+    width: auto;
+    font: bold 10rem pen;
+    background: lemonchiffon;
+    padding: 1rem;
+    box-shadow: rgba(41, 41, 38, 0.508) 0 0.5rem 20px;
+    margin-bottom: -50px;
+}
+
+.lose {
+    color: darkred;
+}
+
+.win {
+    color: darkgreen;
+}
+
+.showWord {
+    position: relative;
+    /* top: -300%; */
+    /* left: -50%; */
+    display: block;
+    margin-top: 5rem;
+    /* left: auto;
+    bottom: 0; */
+    font: 2rem pen  !important;
+}
+
   @keyframes dash {
     from {
        stroke-dashoffset: 71;
@@ -76,7 +143,5 @@ object {
      }
    }
  
- .path {
-     stroke-dasharray: 71 !important;
-     animation: dash 200ms linear forwards !important;
-   }
+
+

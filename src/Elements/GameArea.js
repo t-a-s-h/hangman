@@ -2,9 +2,7 @@ import React, { useReducer } from 'react'
 import styles from './GameArea.module.css'
 // import hangman from '../hangman.svg'
 
-const Guesses = ({ guessesLeft, displayWord, guess, guessed, currMan }) => {
-
-    console.log(currMan)
+const Guesses = ({ guessesLeft, displayWord, guess, guessed, currMan, gameOver, startup, word }) => {
 
     const GetLetters = () => {
 
@@ -42,14 +40,20 @@ const Guesses = ({ guessesLeft, displayWord, guess, guessed, currMan }) => {
 
     return (
         <div id={styles.Guesses}>
-            { currMan }
             <div>
-            <div id={styles.word_display}>
-                { [...displayWord].map(letter => (
-                    <span>{ letter }</span>
-                )) }
+                { currMan }
+                Guesses left: {guessesLeft}
             </div>
-            <GetLetters />
+            <div>
+                {gameOver ? (<div id={styles.winLose}><span className={guessesLeft? styles.win : styles.lose}>{guessesLeft? 'You Win!' : 'You Lose!'}</span></div>) : null}
+                <div id={styles.word_display}>
+                    { [...displayWord].map(letter => (
+                        <span>{ letter }</span>
+                    )) }
+                </div>
+                <GetLetters />
+                <button id={styles.gameOverBtn} onClick={startup}>{gameOver? 'New Game' : 'New Word'}</button>
+                {/* <div className={styles.showWord}>The word was {word}</div> */}
             </div>
         </div>
     )

@@ -11,21 +11,31 @@ import {
 
 // import './index.css';
 import App from './App';
-import Main from './Components/Main'
+// import Main from './Components/Main'
+// import AutoHangman from './Components/AutoHangman'
+import Source from './Components/Source'
+// import Main from './Components/Main'
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Router>
       <Switch>
         <Route exact path="/">
           <App />
         </Route>
-        <Route path="/Hangman">
-          <Main />
+        <Route>
+          <Source/>
+            {/* <Route exact path="/Hangman" key="main">
+              <Main />
+            </Route>
+            <Route exact path="/Auto" key="auto">
+              <AutoHangman />
+            </Route> */}
+          {/* </Source> */}
         </Route>
       </Switch>
-    </Router>
-  </React.StrictMode>,
+    </Router>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

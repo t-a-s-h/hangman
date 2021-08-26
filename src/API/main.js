@@ -10,8 +10,22 @@ const getWord = (cb) => {
 const getWordsArr = (n,cb) => {
     axios.get(`http://random-word-api.herokuapp.com/word?number=${n}&swear=0`)
     .then(res => {
+        console.log(res)
         return cb(res.data)
     })
+    .catch(e=>console.log(e)
+    )
+}
+
+
+const getAllWords = (cb) => {
+    axios.get(`http://random-word-api.herokuapp.com/all`)
+    .then(res => {
+        // console.log(res)
+        return cb(res.data)
+    })
+    .catch(e=>console.log(e)
+    )
 }
 
 // console.log(wordArray)
@@ -22,5 +36,6 @@ const getWordsArr = (n,cb) => {
 
 export {
     getWordsArr,
-    getWord
+    getWord,
+    getAllWords
 }

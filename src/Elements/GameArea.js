@@ -2,7 +2,7 @@ import React, { useReducer } from 'react'
 import styles from './GameArea.module.css'
 // import hangman from '../hangman.svg'
 
-const Guesses = ({ guessesLeft, displayWord, guess, guessed, currMan, gameOver, startup, word }) => {
+const Guesses = ({ guessesLeft, displayWord, guess, guessed, currMan, gameOver, startup, setDisplayWord, setGuessed, component }) => {
 
     const GetLetters = () => {
 
@@ -46,6 +46,18 @@ const Guesses = ({ guessesLeft, displayWord, guess, guessed, currMan, gameOver, 
             </div>
             <div>
                 {gameOver ? (<div id={styles.winLose}><span className={guessesLeft? styles.win : styles.lose}>{guessesLeft? 'You Win!' : 'You Lose!'}</span></div>) : null}
+                <div id={styles.guess}>
+                     { component === 'auto'? [...displayWord].map((letter,i) => (
+                        <input onChange={ (e)=>{
+                            if (!e.target.value.match(/[a-z]{1}/gi)) return
+                            setDisplayWord(displayWord.substr(0,i) + e.target.value + displayWord.substr(i+1, displayWord.length)) 
+                            setGuessed([...guessed, e.target.value])
+                            e.target.style.visibility = 'hidden'
+                        }}
+                        // pattern='[A-Za-z]'
+                        />
+                    )) : null }
+                </div>
                 <div id={styles.word_display}>
                     { [...displayWord].map(letter => (
                         <span>{ letter }</span>

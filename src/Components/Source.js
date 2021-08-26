@@ -12,7 +12,7 @@ const Source = () => {
 
     const paths = [...SVGhangman?.current?.getSVGDocument() ? SVGhangman.current.getSVGDocument().querySelectorAll('path, circle') : '']
     
-    const [guessesLeft, setGuessesLeft] = useState(10)
+    const [guessesLeft, setGuessesLeft] = useState(30)
     
     const [word, setWord] = useState(null)
     
@@ -22,7 +22,7 @@ const Source = () => {
 
     const setHangman = () => {
         return paths.reverse().map((path,i) => {
-            return (i >= guessesLeft)? (path.style.stroke = 'navy', path.setAttribute("class", "path")) : path
+            return (i >= guessesLeft)? (path.style.stroke = 'navy', path.setAttribute('class', 'path')) : null//path
         })
     }
 
@@ -31,47 +31,18 @@ const Source = () => {
     )
 
     const [gameOver, setGameOver] = useState(false)
-        
-    // const guess = (letter) => {
-    
-    //     letter = letter.toLowerCase()
-    
-    //     if (guessed.includes(letter)) return
-    //     if (displayWord === word) {
-    //         setGameOver(true)
-    //         return
-    //     }
-    //     if (!guessesLeft) return
-    
-    //     setGuessed([...guessed, letter])
-    //     console.log(currMan)
-    
-    //     hangMan(setHangman)
-    
-    //     if (word && word.includes(letter)) {
-    //         const newDisplay = displayWord.split('').map((displayed,i) => {
-    //             if (word[i] === letter) {
-    //                 return letter
-    //             }
-    //             else return displayed
-    //         }).join('')
-    
-    //         setDisplayWord(newDisplay)
-    //     } 
-    
-    //     else setGuessesLeft(guessesLeft - 1)
-    // }
 
     const startup = () => {
         setGameOver(false)
         setGuessed([])
-        setGuessesLeft(10)
+        setGuessesLeft(30)
         getWord((w) => {
             setWord(w)
             setDisplayWord(w.replace(/[a-z]/ig,'_'))
         })
         paths.map(path => {
             path.style.stroke = 'transparent'
+            path.removeAttribute('class','path')
         })
         console.log(currMan)
         hangMan([])
@@ -105,12 +76,14 @@ const Source = () => {
         <>
             <Route exact path="/Hangman" key="main">
                 <Main 
-                    {...sourceProps}
+                    { ...sourceProps }
+                    component = { 'main' }
                 />
             </Route>
             <Route exact path="/Auto" key="auto">
                 <AutoHangman
-                    {...sourceProps}
+                    { ...sourceProps }
+                    component = { 'auto' }
                 />
             </Route>
         </>

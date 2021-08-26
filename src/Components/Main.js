@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 import GameArea from '../Elements/GameArea'
-import { getWord, getWordsArr } from '../API/main'
+import { getWord, getAllWords } from '../API/main'
 
 
 const Main = ({         
@@ -20,12 +20,20 @@ const Main = ({
     startup,
     setHangman,
     gameOver,
-    setGameOver
+    setGameOver,
+    component
  }) => {
 
     useEffect(() => {
         document.querySelector('.App').focus()
         console.log(startup, typeof startup)
+
+        // getAllWords(words => {
+        //     const longest = words.reduce((longestWord,nextWord) => {
+        //         return nextWord.length > longestWord.length ? nextWord : longestWord
+        //     },words[0] || '')
+        //     console.log("l",longest, longest.length)
+        // })
         startup()
     },[])
 
@@ -86,6 +94,7 @@ const Main = ({
                 currMan = {  <object height="100ch" height="400ch" ref={SVGhangman} data={hangman}></object> }
                 gameOver = { gameOver }
                 startup = { startup }
+                component = { component }
             />
         </div>
     )

@@ -20,10 +20,11 @@
 
 #word_display > span {
     display: inline-block;
-    margin: 0.25rem;
+    margin-inline: 0.25rem;
     font: 3rem pen;
-    width: 1.25ch;
+    width: 1.5rem;
     height: 1ch;
+    box-sizing: border-box;
 }
 
 #letters {
@@ -78,7 +79,7 @@ object {
     animation: dash 200ms linear forwards !important;
 }
 
-#gameOverBtn {
+#gameOverBtn, form > button {
     font: 2rem pen;
     background: rgb(var(--pen-color));
     color: ivory;
@@ -87,9 +88,9 @@ object {
     border: 0.12rem solid rgb(var(--pen-color));
 }
 
-#gameOverBtn:hover {
-    background: transparent;
-    color: rgb(var(--pen-color));
+#gameOverBtn:hover, form > button:hover {
+    background: darkred;
+    /* color: rgb(var(--pen-color)); */
 }
 
 #winLose {
@@ -132,6 +133,26 @@ object {
     /* left: auto;
     bottom: 0; */
     font: 2rem pen  !important;
+}
+
+#guess > input {
+    width: 1.5rem;
+    margin: 0.25rem;
+    font: 3rem pen;
+    padding: 0;
+    /* border: none; */
+    box-sizing: border-box;
+    border: 1px solid navy;
+    text-align: center;
+    visibility: visible;
+}
+
+#guess {
+    text-align: center;
+    /* margin-block: 2rem; */
+    /* margin-left: 0.25rem; */
+    position: relative;
+    top: 5rem;
 }
 
   @keyframes dash {

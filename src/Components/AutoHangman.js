@@ -9,10 +9,6 @@ const AutoHangman = ({
     paths,
     guessesLeft,
     setGuessesLeft,
-    // guessed,
-    // setGuessed,
-    // word,
-    // setWord,
     displayWord,
     setDisplayWord,
     // startup,
@@ -86,7 +82,7 @@ const AutoHangman = ({
             
             })
         })
-        console.log(arr)
+        // console.log(arr)
         // setWordsArr(arr)
     
         const arr1 = Object.keys(contains).filter(key => !guessed.includes(key))
@@ -134,11 +130,12 @@ const AutoHangman = ({
 
     const bestGuess = (length,arr) => {
         // guessRendered.current = false
-        console.log(wordsArr)
+        // console.log(wordsArr)
         const re = displayWord? new RegExp(displayWord.replaceAll('_','.'),'i') : new RegExp('.'.repeat(numLetters.current),'g')
-        console.log(re, guessedIncorrect)
-        const newArr = arr.filter(word => word.length === length && !(new RegExp(`[${guessedIncorrect?.join('')?? ''}]`,'gi')).test(word) && re.test(word))
-        console.log(newArr)
+        // console.log(re, guessedIncorrect)
+        // const newArr = arr.filter(word => word.length === length && !(new RegExp(`[${guessedIncorrect?.join('')?? ''}]`,'gi')).test(word) && re.test(word))
+        const newArr = arr.filter(word => word.length === length && (new RegExp(displayWord.replaceAll(/[a-z]/g,'.').replaceAll('_',`[^${guessed.join('')}]`))).test(word) && re.test(word))
+        console.log(newArr, guessed, new RegExp(displayWord?.replaceAll(/[a-z]/g,'.').replaceAll('_',`[^${guessed.join('')}]`))?? '','gi')
         // setWordsArr(newArr)
         return mostCommonLetter(newArr)
     }
@@ -243,9 +240,9 @@ const AutoHangman = ({
             <form onSubmit={ (e)=>{
                 e.preventDefault()
                 numLetters.current = parseInt(e.target.querySelector('input').value)
-                console.log(numLetters)
+                // console.log(numLetters)
                 setAutoGuess(bestGuess(numLetters.current,wordsArr))
-                console.log(numLetters.current, wordsArr)
+                // console.log(numLetters.current, wordsArr)
                 return newGame(e.target.querySelector('input').value) }
             }>
                 <label>How many letters in the word? </label>

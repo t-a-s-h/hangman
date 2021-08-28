@@ -6,12 +6,14 @@ import Main from './Main'
 const AutoHangman = ({
     SVGhangman,
     hangman,
+    gameOver,
     paths,
     guessesLeft,
     setGuessesLeft,
     displayWord,
     setDisplayWord,
     // startup,
+    setGameOver,
     setHangman,
     currMan,
     hangMan,
@@ -35,11 +37,11 @@ const AutoHangman = ({
     const [autoGuess, setAutoGuess] = useState('')
 
     const startup = () => {
-        // setGameOver(false)
+        setGameOver(false)
         newGame('')
         setGuessed([])
         console.log(guessed)
-        setGuessesLeft(30)
+        setGuessesLeft(10)
         // getWordsArr(100,(w) => {
         //     console.log(sortByMostCommon(w))
         // })
@@ -75,15 +77,10 @@ const AutoHangman = ({
         const contains = {none: -Infinity}
 
         arr.forEach(word => {
-            // for (letter of word) {
-                return word.match(/[a-z]/ig).map(letter => {
-                    if (!guessed.includes(letter)) return contains[letter]? contains[letter]++ : contains[letter] = 1
-                // }
-            
+                return [...word].map(letter => {
+                    if (!guessed.includes(letter)) return contains[letter]? contains[letter]++ : contains[letter] = 1            
             })
         })
-        // console.log(arr)
-        // setWordsArr(arr)
     
         const arr1 = Object.keys(contains).filter(key => !guessed.includes(key))
 
@@ -96,47 +93,16 @@ const AutoHangman = ({
                 return max
             }
         },'none')
-
-
-        // return arr1.reduce((max, curr) => {
-        //     console.log(contains, guessed)
-        //     return (!guessed.includes(curr) && contains[curr] > contains[max]) ? curr : max
-        // },'empty')
-        // // return [...arr.join()].reduce((mostCommon,letter)=>{
-        //     console.log(mostCommon,letter)
-            
-        //     obj[letter]? obj[letter]++ : obj[letter] = 1
-        //     return (obj[letter] > obj[mostCommon])? letter : mostCommon
-        // }
     }
 
-    // const mostCommonLetter = (arr) => {
-    //     const letters = ['e','a','r','i','o','t','n','s','l','c','u','d','p','m','h','g','b','f','y','w','k','v','x','z','j','q']
-    //     const contains = {}
-
-    //     arr.forEach(word => {
-    //         // for (letter of word) {
-    //             word.match(/[a-z]/ig).map(letter => {
-    //                 return contains[letter]? contains[letter]++ : contains[letter] = 1
-                
-    //             // }
-            
-    //     })
-    // })
-
-    // return contains
-
-
-
     const bestGuess = (length,arr) => {
-        // guessRendered.current = false
-        // console.log(wordsArr)
-        const re = displayWord? new RegExp(displayWord.replaceAll('_','.'),'i') : new RegExp('.'.repeat(numLetters.current),'g')
+        console.log(arr)
+        const re = new RegExp(displayWord?.replaceAll('_','.'),'i')?? new RegExp('.'.repeat(length),'g')
         // console.log(re, guessedIncorrect)
         // const newArr = arr.filter(word => word.length === length && !(new RegExp(`[${guessedIncorrect?.join('')?? ''}]`,'gi')).test(word) && re.test(word))
-        const newArr = arr.filter(word => word.length === length && (new RegExp(displayWord.replaceAll(/[a-z]/g,'.').replaceAll('_',`[^${guessed.join('')}]`))).test(word) && re.test(word))
-        console.log(newArr, guessed, new RegExp(displayWord?.replaceAll(/[a-z]/g,'.').replaceAll('_',`[^${guessed.join('')}]`))?? '','gi')
-        // setWordsArr(newArr)
+        const newArr = arr.filter(word => new RegExp(displayWord?.replaceAll('_',guessed.length?`[^${guessed.join('')}]`: '.')).test(word)) //&& re.test(word))
+        console.log(newArr, re,guessed, new RegExp(displayWord?.replaceAll(/[a-z]/g,'.').replaceAll('_',guessed.length?`[^${guessed.join('')}]`: '.')))//new RegExp(displayWord?.replaceAll(/[a-z]/g,'.').replaceAll('_',`[^${guessed.join('')}]`))?? '','gi')
+        setWordsArr(newArr)
         return mostCommonLetter(newArr)
     }
 
@@ -175,6 +141,12 @@ const AutoHangman = ({
             setAutoGuess(bestGuess(numLetters.current,wordsArr))
         // }
     },[guessed])
+
+    useEffect(() => {
+        if (!guessesLeft || (word && /^[a-z]*$/g.test(displayWord))) setGameOver(true)
+        console.log(!guessesLeft || (word && /^[a-z]*$/g.test(displayWord)), /^[a-z]*$/g.test(displayWord))
+        return hangMan(setHangman())
+    },[guessesLeft && /^[a-z]*$/g.test(displayWord) || (displayWord && guessesLeft)])
 
 
     // useEffect(()=> {
@@ -224,7 +196,7 @@ const AutoHangman = ({
 
     return (
         <div>
-            
+
             <GameArea
                 guessesLeft = { guessesLeft }
                 // word = { word }
@@ -233,15 +205,16 @@ const AutoHangman = ({
                 guess = { guess }
                 guessed = { guessed }
                 setGuessed = { setGuessed }
-                currMan = {  <object height="100ch" height="400ch" ref={SVGhangman} data={hangman}></object> }
+                currMan = { <object height="100ch" height="400ch" ref={SVGhangman} data={hangman}></object> } 
                 startup = { startup }
                 component = { component }
+                gameOver = { gameOver }
             />
             <form onSubmit={ (e)=>{
                 e.preventDefault()
                 numLetters.current = parseInt(e.target.querySelector('input').value)
                 // console.log(numLetters)
-                setAutoGuess(bestGuess(numLetters.current,wordsArr))
+                setAutoGuess(bestGuess(numLetters.current,wordsArr.filter(word => word.length === 4)))
                 // console.log(numLetters.current, wordsArr)
                 return newGame(e.target.querySelector('input').value) }
             }>

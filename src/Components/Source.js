@@ -12,7 +12,7 @@ const Source = () => {
 
     const paths = [...SVGhangman?.current?.getSVGDocument() ? SVGhangman.current.getSVGDocument().querySelectorAll('path, circle') : '']
     
-    const [guessesLeft, setGuessesLeft] = useState(30)
+    const [guessesLeft, setGuessesLeft] = useState(10)
     
     const [word, setWord] = useState(null)
     
@@ -22,7 +22,7 @@ const Source = () => {
 
     const setHangman = () => {
         return paths.reverse().map((path,i) => {
-            return (i >= guessesLeft)? (path.style.stroke = 'navy', path.setAttribute('class', 'path')) : null//path
+            return (i >= guessesLeft)? (path.style.stroke = 'navy', path.setAttribute('class', 'path')) : null
         })
     }
 
@@ -35,7 +35,7 @@ const Source = () => {
     const startup = () => {
         setGameOver(false)
         setGuessed([])
-        setGuessesLeft(30)
+        setGuessesLeft(10)
         getWord((w) => {
             setWord(w)
             setDisplayWord(w.replace(/[a-z]/ig,'_'))

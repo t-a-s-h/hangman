@@ -1,8 +1,9 @@
 import React, { useReducer } from 'react'
 import styles from './GameArea.module.css'
-// import hangman from '../hangman.svg'
+import ChangeDisplay from './ChangeDisplay'
+import CurrMan from './CurrMan'
 
-const Guesses = ({ guessesLeft, displayWord, guess, guessed, currMan, gameOver, startup, setDisplayWord, setGuessed, component }) => {
+const Guesses = ({ guessesLeft, displayWord, guess, guessed, gameOver, startup, setDisplayWord, setGuessed, component, word, numLetters }) => {
 
     const GetLetters = () => {
 
@@ -17,17 +18,9 @@ const Guesses = ({ guessesLeft, displayWord, guess, guessed, currMan, gameOver, 
                         key={i} 
                         id={ letter }
                         onClick={ () => {
-                        //     e.preventDefault()
-                        //     console.log(document.activeElement, e.target, document.activeElement === e.target)
-                        //     // return [
-                                // e.target.matches(':focus')? e.target.classList.add(styles.active) : null,
                                 guess(letter) 
-                                // e.target.focus()
-                            // ]
                         }}
                         disabled={ guessed.includes(letter.toLowerCase()) }
-                        // className={ (e)=> console.log(e)}
-
                     >
                         { letter }
                     </button>
@@ -41,31 +34,29 @@ const Guesses = ({ guessesLeft, displayWord, guess, guessed, currMan, gameOver, 
     return (
         <div id={styles.Guesses}>
             <div>
-                { currMan }
+                <CurrMan
+                    guessesLeft = {guessesLeft}
+                />
                 Guesses left: {guessesLeft}
             </div>
-            <div>
-                {gameOver ? (<div id={styles.winLose}><span className={guessesLeft? styles.win : styles.lose}>{guessesLeft? 'You Win!' : 'You Lose!'}</span></div>) : null}
+            <div id={styles.left}>
+                {gameOver ? (<div id={styles.winLose}><span className={guessesLeft ? styles.won : styles.lost}>{guessesLeft? 'You Win!': 'You Lose!'}</span><br/><span className={styles.showWord}> The word was {word}</span></div>) : null}
                 <div id={styles.guess}>
-                     { component === 'auto'? [...displayWord].map((letter,i) => (
-                        <input onChange={ (e)=>{
-                            if (!e.target.value.match(/[a-z]{1}/gi)) return
-                            setDisplayWord(displayWord.substr(0,i) + e.target.value + displayWord.substr(i+1, displayWord.length)) 
-                            setGuessed([...guessed, e.target.value])
-                            e.target.style.visibility = 'hidden'
-                        }}
-                        // pattern='[A-Za-z]'
-                        />
-                    )) : null }
+                     { component === 'auto'? 
+                        <ChangeDisplay
+                            setDisplayWord = {setDisplayWord}
+                            displayWord = {displayWord}
+                            setGuessed = {setGuessed}
+                            guessed = {guessed}
+                        /> : null }
                 </div>
                 <div id={styles.word_display}>
-                    { [...displayWord].map(letter => (
-                        <span>{ letter }</span>
+                    { [...displayWord].map((letter,i) => (
+                        <span key={ letter + i }>{ letter }</span>
                     )) }
                 </div>
                 <GetLetters />
-                <button id={styles.gameOverBtn} onClick={startup}>{gameOver? 'New Game' : 'New Word'}</button>
-                {/* <div className={styles.showWord}>The word was {word}</div> */}
+                <button id={styles.gameOverBtn} onClick={()=>startup(numLetters)}>{gameOver? 'New Game' : 'New Word'}</button>
             </div>
         </div>
     )

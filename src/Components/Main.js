@@ -1,14 +1,7 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 import GameArea from '../Elements/GameArea'
-import { getWord, getAllWords } from '../API/main'
-
 
 const Main = ({         
-    SVGhangman,
-    hangman,
-    hangMan,
-    currMan,
-    paths,
     guessesLeft,
     setGuessesLeft,
     guessed,
@@ -18,7 +11,6 @@ const Main = ({
     displayWord,
     setDisplayWord,
     startup,
-    setHangman,
     gameOver,
     setGameOver,
     component
@@ -26,14 +18,6 @@ const Main = ({
 
     useEffect(() => {
         document.querySelector('.App').focus()
-        console.log(startup, typeof startup)
-
-        // getAllWords(words => {
-        //     const longest = words.reduce((longestWord,nextWord) => {
-        //         return nextWord.length > longestWord.length ? nextWord : longestWord
-        //     },words[0] || '')
-        //     console.log("l",longest, longest.length)
-        // })
         startup()
     },[])
 
@@ -45,9 +29,7 @@ const Main = ({
         if (displayWord === word) return
         if (!guessesLeft) return
     
-        setGuessed([...guessed, letter])
-        console.log(currMan)
-    
+        setGuessed([...guessed, letter])    
     
         if (word && word.includes(letter)) {
             const newDisplay = displayWord.split('').map((displayed,i) => {
@@ -63,20 +45,20 @@ const Main = ({
         else {
             setGuessesLeft(guessesLeft - 1)
         }
+        document.querySelector('.App').focus()
     }
 
 
     useEffect(() => {
         if (!guessesLeft || (word && (displayWord === word))) setGameOver(true)
         console.log(guessesLeft, displayWord, word)
-        return hangMan(setHangman())
     },[guessesLeft && (displayWord === word) || (displayWord && guessesLeft)])
 
     return (
         <div 
             className='App'
             tabIndex='0'
-            onKeyPress={ (e) => {
+            onKeyUp={ (e) => {
                 if (e.key.match(/^[a-z]$/i)) {
                     e.preventDefault()
                     console.log(`#${e.key.toUpperCase()}`, document.querySelector(`#${e.key.toUpperCase()}`))
@@ -91,7 +73,6 @@ const Main = ({
                 displayWord = { displayWord? displayWord : '...'}
                 guess = { guess }
                 guessed = { guessed }
-                currMan = {  <object height="100ch" height="400ch" ref={SVGhangman} data={hangman}></object> }
                 gameOver = { gameOver }
                 startup = { startup }
                 component = { component }

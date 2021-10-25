@@ -13,22 +13,22 @@ h1 {
   color: rgb(var(--pen-color));
   position: relative;
   /* animation: drop 3s ease-in-out forwards; */
-  letter-spacing: 0.2ch;
-}
-
-h1 > span > span {
-  opacity: 0;
 }
 
 h1 > span {
   position: relative;
 }
 
+h1 > span:not(:last-child) {
+  margin-right: 0.2ch
+}
+
 h1 > span > span {
+  opacity: 0;
   display: inline-block;
   position: absolute;
   top: 0;
-  left: calc(50% - 0.8ch);
+  left: 0.5ch;
   font-family: pen;
 } 
 

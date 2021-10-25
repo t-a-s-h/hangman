@@ -2,15 +2,12 @@ import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { getWord, getWordsArr } from '../API/main'
 import AutoHangman from './AutoHangman'
 import Main from './Main'
-import hangman from '../hangman.svg'
 
 import { Route } from "react-router-dom";
 
 const Source = () => {
 
-    const SVGhangman = useRef(null)
-
-    const paths = [...SVGhangman?.current?.getSVGDocument() ? SVGhangman.current.getSVGDocument().querySelectorAll('path, circle') : '']
+    // const SVGhangman = useRef(null)
     
     const [guessesLeft, setGuessesLeft] = useState(10)
     
@@ -20,15 +17,10 @@ const Source = () => {
     
     const [displayWord, setDisplayWord] = useState(null)
 
-    const setHangman = () => {
-        return paths.reverse().map((path,i) => {
-            return (i >= guessesLeft)? (path.style.stroke = 'navy', path.setAttribute('class', 'path')) : null
-        })
-    }
+    // const [currMan, hangMan] = useState(()=>()
+    // )
 
-    const [currMan, hangMan] = useState(
-       []
-    )
+    // const paths = [...SVGhangman?.current?.getSVGDocument() ? SVGhangman.current.getSVGDocument().querySelectorAll('path, circle') : '']
 
     const [gameOver, setGameOver] = useState(false)
 
@@ -40,18 +32,9 @@ const Source = () => {
             setWord(w)
             setDisplayWord(w.replace(/[a-z]/ig,'_'))
         })
-        paths.map(path => {
-            path.style.stroke = 'transparent'
-            path.removeAttribute('class','path')
-        })
-        console.log(currMan)
-        hangMan([])
     }
 
     const sourceProps = {
-        SVGhangman,
-        hangman,
-        paths,
         guessesLeft,
         setGuessesLeft,
         guessed,
@@ -62,15 +45,9 @@ const Source = () => {
         setDisplayWord,
         getWord,
         startup,
-        setHangman,
-        hangMan,
-        currMan,
-        // guess,
         gameOver,
         setGameOver
     }
-
-    // sourceProps.startup = sourceProps.startup.bind(sourceProps)
 
     return (
         <>

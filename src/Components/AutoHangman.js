@@ -27,6 +27,7 @@ const AutoHangman = ({
 
     const startup = (numLetters) => {
         setGameOver(false)
+        setWord(null)
         setGuessed([])
         setGuessesLeft(10)
         getAllWords((w) => {
@@ -81,7 +82,10 @@ const AutoHangman = ({
     },[guessed, gameOver])
 
     useEffect(() => {
-        if (!(guessesLeft && /[_.]/.test(displayWord))) setGameOver(true)
+        if (!(guessesLeft && (!displayWord || /_/.test(displayWord)))) {
+            console.log("look here", guessesLeft, displayWord)
+            setGameOver(true)
+        }
         if (!/_/.test(displayWord)) setWord(displayWord)
     },[displayWord + guessesLeft])
 
@@ -109,7 +113,7 @@ const AutoHangman = ({
 
             <GameArea
                 guessesLeft = { guessesLeft }
-                displayWord = { displayWord || '...'}
+                displayWord = { displayWord || '...' }
                 setDisplayWord = { setDisplayWord }
                 guess = { guess }
                 guessed = { guessed }

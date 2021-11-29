@@ -70,7 +70,6 @@ const Hangman = ({ guessesLeft }) => {
       animation: 2.5s linear 1s 1 normal both running draw1;\
    \}'}
    </style>
-      {/* <div> */}
       <svg
          height="120" 
          height="480"

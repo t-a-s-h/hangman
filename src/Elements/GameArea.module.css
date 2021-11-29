@@ -1,3 +1,5 @@
+@import url(../App.css);
+
 #Guesses {
     width: auto;
     margin: auto;
@@ -5,6 +7,10 @@
     text-align: center;
     display: flex;
     align-items: center;
+}
+
+#Guesses {
+    transition: all 2s;
 }
 
 #Guesses > div {
@@ -15,7 +21,6 @@
 #word_display {
     text-align: center;
     margin-block: 2rem;
-    /* font: 3rem monospace */
 }
 
 #word_display > span {
@@ -57,13 +62,13 @@ button {
     transform:
         translateY(1rem)
         translateX(-1.3rem)
-        rotate(-45deg); ;;
+        rotate(-45deg);
     position: absolute;
     /* color: rgba(var(--pen-color),0.5);
     text-decoration: rgb(var(--pen-color)); */
 }
 
-#letters > button:hover:not(:disabled), #letters > button:hover/*:not(:disabled)*/ {
+#letters > button:hover:not(:disabled), #letters > button:hover, button.best-guess {
     border: 0.12rem solid rgb(var(--pen-color));
     background: rgba(var(--pen-color));
     color: ivory;
@@ -79,7 +84,7 @@ object {
     animation: dash 200ms linear forwards !important;
 }
 
-#gameOverBtn, form > button {
+#gameOverBtn, form button {
     font: 2rem pen;
     background: rgb(var(--pen-color));
     color: ivory;
@@ -88,20 +93,9 @@ object {
     border: 0.12rem solid rgb(var(--pen-color));
 }
 
-#gameOverBtn:hover, form > button:hover {
+#gameOverBtn:hover, form button:hover {
     background: darkred;
-    /* color: rgb(var(--pen-color)); */
 }
-
-/* #winLose {
-    position: absolute;
-    left: 50%;
-    top: 20%;
-    /* width: 200%; 
-    transform: rotate(-10deg);
-    transform-origin: left;
-    z-index: 1000;
-} */
 
 #left {
     position: relative;
@@ -115,12 +109,21 @@ object {
 
 #winLose {
     position: absolute;
-    background: lemonchiffon;
+    background: linear-gradient(to bottom, lemonchiffon, hsl(54, 95%, 90%) 15%, hsl(54, 50%, 65%) 40%, hsl(54, 50%, 65%) 50%, hsl(54, 70%, 85%) 85%,  hsl(54, 60%, 80%) 90%, hsl(54, 50%, 65%) 100%);
     padding: 1rem;
     box-shadow: rgba(41, 41, 38, 0.508) 0 0.5rem 20px;
     transform: rotate(-10deg);
     transform-origin: left;
-    z-index: 1000;
+    z-index: 10;
+    animation: transition 0.5s ease-out;
+    border-radius: 2em 1em 4em / 0.25em 3em;
+    animation: transition 0.5s ease-out;
+    animation-play-state: initial;
+}
+
+#winLose:active {
+    animation: transition 0.5s ease-out, transition 0.5s ease-out 0s 1 reverse forwards;
+    animation-play-state: paused, running;
 }
 
 #winLose > span {
@@ -179,15 +182,6 @@ object {
 
 }
 
-/* svg *{
-    fill: none;
-    stroke: blue !important;
-} */
-
-/* svg #gallows {
-    fill: red
-} */
-
 @keyframes dash {
     from {
        stroke-dashoffset: 156;
@@ -197,21 +191,25 @@ object {
      }
    }
 
-  /* @keyframes dash {
+  @keyframes transition {
     from {
-       stroke-dashoffset: 71;
+      border-radius: 0;
+      opacity: 0;
+      transform: 
+        scale(200%)
+        translate(0, -100%)
+        rotateZ(-90deg)
+  
     }
-     to {
-       stroke-dashoffset: 0;
-     }
-   }
-  */
+    to {
+      opacity: 1;
+      transform: 
+        scale(100%)
+        translate(0, 0)
+        rotate(-10deg)
+    }
+  }
 
-  /* ellipse, path {
-    stroke-dasharray: 100 !important;
-      animation: dash 300ms linear forwards !important;
-  } */
+  @media (max-width: 650px) {
 
-
-
-
+  }

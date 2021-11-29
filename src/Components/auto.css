@@ -1,0 +1,33 @@
+form.letters {
+    font: 2rem pen;
+    position: absolute;
+    height: 20rem;
+    width: 50rem;
+    background: #272727;
+    color: #fff;
+    inset: 0;
+    margin: 20% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    flex-flow: column;
+}
+
+form.letters >  * {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+form.letters input {
+    width: 3rem;
+    font-size: 3rem;
+    line-height: 3.5rem;
+}
+
+button.best-guess {
+    border: 0.12rem solid rgb(var(--pen-color)) !important;
+    background: rgba(var(--pen-color)) !important;
+    color: ivory !important;
+}

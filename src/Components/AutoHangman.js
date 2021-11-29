@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import GameArea from '../Elements/GameArea'
 import { getAllWords } from '../API/main'
+import './auto.css'
 
 const AutoHangman = ({
     gameOver,
@@ -12,6 +13,9 @@ const AutoHangman = ({
     component
     }) => {
 
+    const letterform = useRef(null)
+
+    const letters1 = useRef([])
                 
     const [word, setWord] = useState([null])
 
@@ -23,13 +27,13 @@ const AutoHangman = ({
     const [guessed, setGuessed] = useState([])
     const [guessedIncorrect, setGuessedIncorrect] = useState([])
 
-    const [autoGuess, setAutoGuess] = useState('')
+    const [autoGuess, setAutoGuess] = useState('none')
 
     const startup = (numLetters) => {
         setGameOver(false)
         setWord(null)
         setGuessed([])
-        setGuessesLeft(10)
+        setGuessesLeft(15)
         getAllWords((w) => {
             setAllWords(w)
         })
@@ -59,7 +63,7 @@ const AutoHangman = ({
     
         const arr1 = Object.keys(contains).filter(key => !guessed.includes(key))
 
-        return arr1.reduce((max, curr) => {
+        const bestGuessLetter = arr1.reduce((max, curr) => {
             if (!guessed.includes(curr) && contains[curr] > contains[max]) {
                 return curr
             } else if (!guessed.includes(curr) && contains[curr] === contains[max]) {
@@ -68,6 +72,9 @@ const AutoHangman = ({
                 return max
             }
         },'none')
+        letters1.current?.[bestGuessLetter.toUpperCase().charCodeAt(0) - 65].classList.add('best-guess')
+        console.log(letters1,letters1.current?.[bestGuessLetter.toUpperCase().charCodeAt(0) - 65],bestGuessLetter.toUpperCase().charCodeAt(0) - 65)
+        return bestGuessLetter
     }
 
     const bestGuess = (arr) => {
@@ -109,7 +116,7 @@ const AutoHangman = ({
     },[])
 
     return (
-        <div>
+        <div className="App">
 
             <GameArea
                 guessesLeft = { guessesLeft }
@@ -123,19 +130,27 @@ const AutoHangman = ({
                 gameOver = { gameOver }
                 word = { word }
                 numLetters = { numLetters.current }
+                letters = { letters1.current }
             />
-            <form onSubmit={ (e)=>{
+             <span className="is-in-word"> Is the letter { autoGuess?? ""} in the word?
+                <i className="yes"> &#x02713; </i>
+                <i className="no"> &times; </i>
+            </span>
+            <form ref={ letterform }className="letters" onSubmit={(e)=>{
                 e.preventDefault()
                 numLetters.current = parseInt(e.target.number.value)
                 startup(numLetters.current)
                 wordsArr.current = allWords.filter(word=> word.length === parseInt(e.target.number.value))
+                letterform.current.style.display = 'none'
             }
             }>
+                Pick a word, any word <small>(between 4 and 15 letters)</small>
                 <label>How many letters in the word? </label>
-                <input name='number' type='number' defaultValue='4' min='4' max='15'/>
-                <button type="submit">start</button>
+                <div>
+                    <input name='number' type='number' defaultValue='4' min='4' max='15'/>
+                    <button type="submit">start</button>
+                </div>
             </form>
-            <span>Best guess: { autoGuess }</span>
         </div>
     )
 }

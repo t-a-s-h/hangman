@@ -10,24 +10,39 @@
   --pen-color: 23, 0, 85;
 }
 
-body {
-  background: ivory;
-  /* animation: slide-up 4s ease forwards calc(var(--guess_gap) * 6.5); */
-}
-
-body, .App{
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  /* width: 100%; */
-}
-
 :root, #root {
   height: 100%;
 }
 
+body {
+  position: absolute;
+  background: url('./plank-wood-texture-diffuse.jpeg'), burlywood;
+  background-position: center center;
+  padding: 0;
+  margin: 0;
+  /* overflow: hidden; */
+  width: 100%;
+  height: 100%;
+  font-family: pen;
+}
+
 .App {
   display: flex;
+  width: 90%;
+  min-height: 100%;
+  margin: auto;
+  align-items: center;
+  padding: 0;
+  line-height: 3em;
+  background: 
+    linear-gradient(to right, transparent 0, transparent 8em, #dc143c7c 8em, #dc143c7c 8.0625em, transparent 8.0625em),
+    linear-gradient(#fffffc 0, #fffffc 6em, transparent 6em, transparent),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 3em, #00008065 3em, #00008065 3.0625em, transparent 3.0625em), 
+    linear-gradient(140deg, #fffffc 60%, #f0f0db 90%, #e0e0d1 100%)
+    #fffffc;
+  background-position: 0 0,0 0, 0 0;
+  box-shadow: rgba(0, 0, 0, 0.535) 2px 2px 30px;
+  position: relative;
 }
 
 .App:focus {
@@ -59,17 +74,52 @@ body, .App{
 
 #Splash.fade-out {
     opacity: 0;
-    /* background: red; */
-    /* display: none; */
-    /* animation: fade-out 12s ease-out forwards; */
 }
 
-/* svg > circle {
-    position: relative;
-} */
-/* 
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
+
+.App.spin-out {
+  animation: transition 2s ease, transition 2s ease 0s 1 reverse forwards;
+  animation-play-state: paused, running;
+}
+
+.App.spin-in {
+  animation: transition 2s ease;
+  animation-play-state: initial;
+}
+
+@keyframes transition {
+  from {
+    opacity: 0;
+    transform: 
+      scale(200%)
+      translate(0, -100%)
+      rotateZ(90deg)
   }
-} */
+  to {
+    opacity: 1;
+    transform: 
+      scale(100%)
+      translate(0, 0)
+      rotateZ(0)
+  }
+}
+
+textarea {
+  display: none;
+}
+
+@media (max-width: 650px) {
+
+  .App {
+    width: 100%;
+  }
+
+  .App > * {
+    flex-flow: column;
+  }
+
+  svg {
+    height: 50vh;
+  }
+  
+}

@@ -1,6 +1,9 @@
-const addTransition = (href) => {
+const addTransition = (href,elname,animationname) => {
 
-    const splash = document.querySelector('#Splash')
+    // console.log(effects)
+
+    // const splash = document.querySelector('#Splash')
+    const app = document.querySelector('.App')
     const anchor = document.querySelector(`a[href="${href}"]`)
 
     anchor.addEventListener('click',(event) => {
@@ -9,20 +12,15 @@ const addTransition = (href) => {
         // Prevents browser from following link
         event.preventDefault()
 
-        // Apply fade-out effect
-        splash.classList.add('fade-out')
+        // Apply effect
+        app.classList.add('spin-out')
 
         // Link visited only after animation is finished
         setTimeout(() => {
-            window.location = href
-        },1500)
+            window.location = href    
+        },2500)
 
         })
-}
-
-const getTimeInMS = (time) => {
-    console.log(time,time.match(/[0-9]*(?=s$)/))
-    return time.match(/[0-9]*(?=s$)/)[0]
 }
 
 export default addTransition

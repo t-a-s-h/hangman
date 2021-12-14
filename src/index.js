@@ -25,13 +25,6 @@ ReactDOM.render(
         </Route>
         <Route>
           <Source/>
-            {/* <Route exact path="/Hangman" key="main">
-              <Main />
-            </Route>
-            <Route exact path="/Auto" key="auto">
-              <AutoHangman />
-            </Route> */}
-          {/* </Source> */}
         </Route>
       </Switch>
     </Router>,

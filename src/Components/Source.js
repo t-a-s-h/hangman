@@ -6,8 +6,6 @@ import Main from './Main'
 import { Route } from "react-router-dom";
 
 const Source = () => {
-
-    // const SVGhangman = useRef(null)
     
     const [guessesLeft, setGuessesLeft] = useState(10)
     
@@ -16,11 +14,6 @@ const Source = () => {
     const [guessed, setGuessed] = useState([])
     
     const [displayWord, setDisplayWord] = useState(null)
-
-    // const [currMan, hangMan] = useState(()=>()
-    // )
-
-    // const paths = [...SVGhangman?.current?.getSVGDocument() ? SVGhangman.current.getSVGDocument().querySelectorAll('path, circle') : '']
 
     const [gameOver, setGameOver] = useState(false)
 
@@ -51,13 +44,13 @@ const Source = () => {
 
     return (
         <>
-            <Route exact path="/Hangman" key="main">
+            <Route exact path="/game" key="main">
                 <Main 
                     { ...sourceProps }
                     component = { 'main' }
                 />
             </Route>
-            <Route exact path="/Auto" key="auto">
+            <Route exact path="/auto" key="auto">
                 <AutoHangman
                     { ...sourceProps }
                     component = { 'auto' }

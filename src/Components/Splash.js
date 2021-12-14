@@ -5,12 +5,12 @@ import addTransition from '../functions'
 const Splash = () => {
 
     useEffect(()=> {
-        addTransition('/Hangman')
+        addTransition('/game')
     },[])
 
     return (
         <header id='Splash'>
-            <a href='/Hangman'>
+            <a href='/game'>
 
                 <h1>
                     <span><span>H</span>_</span>

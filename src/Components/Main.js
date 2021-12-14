@@ -16,18 +16,10 @@ const Main = ({
     component
  }) => {
 
-    const isMobile = useRef(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
-
     useEffect(() => {
         document.querySelector('.App').focus()
         startup()
     },[])
-
-    const getKeyboard = () => {
-        document.querySelector('textarea').style.visibility = "visible"
-        if (isMobile) document.querySelector('textarea').focus()
-        document.querySelector('textarea').style.visibility = "hidden"
-    }
 
     const guess = (letter) => {
     

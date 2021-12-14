@@ -35,9 +35,9 @@ body {
   padding: 0;
   line-height: 3em;
   background: 
-    linear-gradient(to right, transparent 0, transparent 8em, #dc143c7c 8em, #dc143c7c 8.0625em, transparent 8.0625em),
+    linear-gradient(to right, transparent 0, transparent 8em, #dc143c28 8em, #dc143c28 8.0625em, transparent 8.0625em),
     linear-gradient(#fffffc 0, #fffffc 6em, transparent 6em, transparent),
-    repeating-linear-gradient(to bottom, transparent 0, transparent 3em, #00008065 3em, #00008065 3.0625em, transparent 3.0625em), 
+    repeating-linear-gradient(to bottom, transparent 0, transparent 3em, #00008036 3em, #00008036 3.0625em, transparent 3.0625em), 
     linear-gradient(140deg, #fffffc 60%, #f0f0db 90%, #e0e0d1 100%)
     #fffffc;
   background-position: 0 0,0 0, 0 0;

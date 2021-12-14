@@ -41,14 +41,14 @@ const AutoHangman = ({
     }
 
 
-    const sortByMostCommon = (arr) => { 
-        const letters = ['e','a','r','i','o','t','n','s','l','c','u','d','p','m','h','g','b','f','y','w','k','v','x','z','j','q']
-        return arr.sort((a,b)=> {
-            for (let i = 0; i < a.length || b.length; i++) {
-                if (a[i] !== b[i]) return letters.indexOf(a[i]) - letters.indexOf(b[i])
-            }
-        })
-    }
+    // const sortByMostCommon = (arr) => { 
+    //     const letters = ['e','a','r','i','o','t','n','s','l','c','u','d','p','m','h','g','b','f','y','w','k','v','x','z','j','q']
+    //     return arr.sort((a,b)=> {
+    //         for (let i = 0; i < a.length || b.length; i++) {
+    //             if (a[i] !== b[i]) return letters.indexOf(a[i]) - letters.indexOf(b[i])
+    //         }
+    //     })
+    // }
    
 
     const mostCommonLetter = (arr) => {
@@ -56,7 +56,7 @@ const AutoHangman = ({
         const contains = {none: -Infinity}
 
         arr.forEach(word => {
-            return [...word].map(letter => {
+            return [...word].forEach(letter => {
                 if (!guessed.includes(letter)) return contains[letter]? contains[letter]++ : contains[letter] = 1            
             })
         })
@@ -86,7 +86,7 @@ const AutoHangman = ({
                 
     useEffect(()=> {
         setAutoGuess(bestGuess(wordsArr.current))
-    },[guessed, gameOver])
+    },[guessed, gameOver, bestGuess])
 
     useEffect(() => {
         if (!(guessesLeft && (!displayWord || /_/.test(displayWord)))) {

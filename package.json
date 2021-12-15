@@ -1,6 +1,5 @@
 {
   "name": "hangman",
-  "homepage": "https://tasha876.github.io/Hangman/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -44,7 +44,7 @@ const Source = () => {
 
     return (
         <>
-            <Route exact path="/Hangman" key="main">
+            <Route exact path="/game" key="main">
                 <Main 
                     { ...sourceProps }
                     component = { 'main' }

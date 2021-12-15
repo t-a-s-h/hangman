@@ -1,5 +1,14 @@
 import axios from 'axios'
 
+axios.create({
+    baseURL: "Hangman",
+    withCredentials: false,
+    headers: {
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Methods':'GET',   
+    }
+})
+
 const getWord = (cb) => {
     axios.get('http://random-word-api.herokuapp.com/word?number=1&swear=0')
     .then(res => {

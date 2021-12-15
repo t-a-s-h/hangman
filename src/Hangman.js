@@ -1,5 +1,4 @@
-import React, { createRef } from 'react'
-import { useRef, useEffect, useState } from 'react'
+import React, { useRef } from 'react'
 
 const Hangman = ({ guessesLeft }) => {
 
@@ -19,7 +18,7 @@ const Hangman = ({ guessesLeft }) => {
       }
    }
 
-   
+
    return (
    <>
    <style>

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react'
+import React, { useEffect } from 'react'
 import GameArea from '../Elements/GameArea'
 
 const Main = ({         

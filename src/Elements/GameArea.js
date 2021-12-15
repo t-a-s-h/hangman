@@ -19,21 +19,11 @@ const Guesses = ({
     letters
  }) => {
 
-
-    // const isMobile = useRef(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
-
-    // const showKeyboard = () => {
-    //     document.querySelector('#keyboard').style.visibility = "visible"
-    //     document.querySelector('#keyboard').focus()
-    //     document.querySelector('#keyboard').style.visibility = "hidden"
-    // }
-
     const GetLetters = () => {
 
         return (
             <div id={styles.letters}>
             { [...Array(26)].map((item,i) => {
-                // letters.current.push(i)
                 const letter = String.fromCharCode(i + 65)
 
                 return (
@@ -79,10 +69,6 @@ const Guesses = ({
                         <span key={ letter + i }>{ letter }</span>
                     )) }
                 </div>
-                {/* <input type="text" pattern={/[^a-z]/} id={'keyboard'}/> */}
-                {/* <button
-                    onClick={showKeyboard}
-                >Show Keyboard</button> */}
                 <GetLetters />
                 <button id={styles.gameOverBtn} onClick={()=>startup(numLetters)}>{gameOver? 'New Game' : 'New Word'}</button>
             </div>

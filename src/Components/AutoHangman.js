@@ -40,17 +40,6 @@ const AutoHangman = ({
         setDisplayWord('_'.repeat(numLetters))
     }
 
-
-    // const sortByMostCommon = (arr) => { 
-    //     const letters = ['e','a','r','i','o','t','n','s','l','c','u','d','p','m','h','g','b','f','y','w','k','v','x','z','j','q']
-    //     return arr.sort((a,b)=> {
-    //         for (let i = 0; i < a.length || b.length; i++) {
-    //             if (a[i] !== b[i]) return letters.indexOf(a[i]) - letters.indexOf(b[i])
-    //         }
-    //     })
-    // }
-   
-
     const mostCommonLetter = (arr) => {
         const letters = ['e','a','r','i','o','t','n','s','l','c','u','d','p','m','h','g','b','f','y','w','k','v','x','z','j','q']
         const contains = {none: -Infinity}

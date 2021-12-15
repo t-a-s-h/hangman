@@ -28,7 +28,6 @@
     margin-inline: 0.25rem;
     font: 4rem pen;
     width: 2rem;
-    /* height: 1ch; */
     box-sizing: border-box;
 }
 
@@ -54,9 +53,6 @@ button {
 
 #letters > button:disabled::before {
     content: '';
-    /* top: 0;
-    left: 0; */
-    /* height: 2rem; */
     width: 3.2rem;
     border-top: 0.12rem solid rgb(var(--pen-color));
     transform:
@@ -128,7 +124,6 @@ object {
 
 #winLose > span {
     font: bold 10rem pen;
-    /* color: darkgreen; */
 }
 
 #winLose > .won {

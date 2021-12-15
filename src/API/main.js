@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 axios.create({
-    baseURL: "Hangman",
+    baseURL: 'Hangman',
     withCredentials: false,
     headers: {
         'Access-Control-Allow-Origin' : '*',
@@ -10,7 +10,7 @@ axios.create({
 })
 
 const getWord = (cb) => {
-    axios.get('http://random-word-api.herokuapp.com/word?number=1&swear=0')
+    axios.get('https://random-word-api.herokuapp.com/word?number=1&swear=0')
     .then(res => {
         return cb(res.data[0])
     })
@@ -21,7 +21,7 @@ const getWord = (cb) => {
 }
 
 const getWordsArr = (n,cb) => {
-    axios.get(`http://random-word-api.herokuapp.com/word?number=${n}&swear=0`)
+    axios.get(`https://random-word-api.herokuapp.com/word?number=${n}&swear=0`)
     .then(res => {
         console.log(res)
         return cb(res.data)
@@ -34,7 +34,7 @@ const getWordsArr = (n,cb) => {
 
 
 const getAllWords = (cb) => {
-    axios.get(`http://random-word-api.herokuapp.com/all?swear=0`)
+    axios.get(`https://random-word-api.herokuapp.com/all?swear=0`)
     .then(res => {
         return cb(res.data)
     })

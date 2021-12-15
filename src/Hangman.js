@@ -19,6 +19,7 @@ const Hangman = ({ guessesLeft }) => {
       }
    }
 
+   
    return (
    <>
    <style>

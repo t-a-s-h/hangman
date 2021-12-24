@@ -12,7 +12,7 @@ h1 {
   color: rgb(var(--pen-color));
   position: relative;
   opacity: 0;
-  animation: appear 0.5s ease-in-out forwards 2s;
+  animation: appear 0.5s ease-in-out forwards;
 }
 
 h1 > span {
@@ -33,23 +33,23 @@ h1 > span > span {
 } 
 
 h1 > span:nth-child(2) > span, h1 span:nth-child(6) > span{
-  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 2 + 2s);
+  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 2);
 }
 
 h1 > span:nth-child(5) > span {
-  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 3 + 2s);
+  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 3);
 }
 
 h1 > span:nth-child(3) > span, h1 span:nth-child(7) > span {
-  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 4 + 2s);
+  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 4);
 }
 
 h1 > span:nth-child(1) > span {
-  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 5 + 2s);
+  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 5);
 }
 
 h1 > span:nth-child(4) > span {
-  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 6 + 2s);
+  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 6);
 }
 
  @keyframes show-splash-letter {

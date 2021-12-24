@@ -1,21 +1,24 @@
 import axios from 'axios'
 
-axios.create({
-    baseURL: 'Hangman',
-    withCredentials: false,
-    headers: {
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Methods':'GET',   
-    }
-})
+// const site = baseURL
+
+// axios.create({
+//     baseURL: 'game',
+//     withCredentials: false,
+//     headers: {
+//         'Access-Control-Allow-Origin' : '*',
+//         'Access-Control-Allow-Methods':'GET',   
+//     }
+// })
 
 const getWord = (cb) => {
     axios.get('https://random-word-api.herokuapp.com/word?number=1&swear=0')
     .then(res => {
+        console.log(res.data)
         return cb(res.data[0])
     })
     .catch(e=>{
-        console.log(e)
+        console.error(e)
         return cb('hello')
     })
 }

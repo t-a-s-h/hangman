@@ -6,18 +6,11 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useParams
 } from "react-router-dom";
-
-// import './index.css';
 import App from './App';
-// import Main from './Components/Main'
-// import AutoHangman from './Components/AutoHangman'
 import Source from './Components/Source'
-// import Main from './Components/Main'
 
 ReactDOM.render(
-  // <React.StrictMode>
     <Router>
       <Switch>
         <Route exact path="/">

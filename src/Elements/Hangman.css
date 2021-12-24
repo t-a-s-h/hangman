@@ -1,0 +1,45 @@
+@keyframes draw1 {
+ from {
+    stroke-dashoffset: 541;
+ }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes draw2 {
+   from {
+      stroke-dashoffset: 302;
+   }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+ellipse, path {
+   opacity: 1;
+   fill: none;
+   stroke: rgb(var(--pen-color));
+   stroke-width: 1.32292;
+   stroke-linecap: round;
+   stroke-linejoin: round;
+   stroke-miterlimit: 4;
+   stroke-dasharray: none;
+   stroke-opacity: 1
+}
+
+path#ground {
+   stroke-dasharray: 541 !important;
+   animation: draw1 2s linear forwards !important;
+}
+path, ellipse {
+   stroke-dasharray: 302 !important;
+   animation: 1s linear 0s 1 normal both running draw2;
+}
+path, ellipse {
+   stroke-dasharray: 302 !important;
+   animation: 1s linear 0s 1 normal both running draw2;
+}
+#gallows path {
+   stroke-dasharray: 541 !important;
+   animation: 2.5s linear 1s 1 normal both running draw1;
+}

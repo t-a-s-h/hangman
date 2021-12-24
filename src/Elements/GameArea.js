@@ -1,22 +1,24 @@
-import React, { useReducer } from 'react'
+import React from 'react'
 import styles from './GameArea.module.css'
 import ChangeDisplay from './ChangeDisplay'
-import CurrMan from './CurrMan'
-import { useRef } from 'react/cjs/react.development'
+import Hangman from './Hangman'
 
 const Guesses = ({ 
     guessesLeft, 
     displayWord,
     guess, 
     guessed, 
+    setGameOver,
     gameOver, 
+    setGameWon,
     startup, 
     setDisplayWord, 
     setGuessed, 
     component, 
-    word, 
     numLetters,
-    letters
+    letters,
+    autoGuess,
+    gameOverBtnRef
  }) => {
 
     const GetLetters = () => {
@@ -48,21 +50,23 @@ const Guesses = ({
     return (
         <div id={styles.Guesses}>
             <div>
-                <CurrMan
+                <Hangman
                     guessesLeft = {guessesLeft}
                 />
                 <div>Guesses left: {guessesLeft}</div>
             </div>
             <div id={styles.left}>
-                {gameOver ? (<div id={styles.winLose}><span className={guessesLeft ? styles.won : styles.lost}>{guessesLeft? 'You Win!': 'You Lose!'}</span><br/><span className={styles.showWord}> The word was {word}</span></div>) : null}
                 <div id={styles.guess}>
-                     { component === 'auto'? 
+                     { component === 'auto' &&
                         <ChangeDisplay
                             setDisplayWord = {setDisplayWord}
                             displayWord = {displayWord}
                             setGuessed = {setGuessed}
                             guessed = {guessed}
-                        /> : null }
+                            autoGuess = {autoGuess}
+                        />
+                    }
+                        
                 </div>
                 <div id={styles.word_display}>
                     { [...displayWord].map((letter,i) => (
@@ -70,7 +74,19 @@ const Guesses = ({
                     )) }
                 </div>
                 <GetLetters />
-                <button id={styles.gameOverBtn} onClick={()=>startup(numLetters)}>{gameOver? 'New Game' : 'New Word'}</button>
+                <button 
+                    ref={gameOverBtnRef}
+                    id={styles.gameOverBtn} 
+                    onClick={()=>{
+                        // if (guessesLeft) setGameAborted(true)
+                        if (component === 'main') {
+                            setGameOver(true)
+                            setGameWon(false)
+                            startup(numLetters)
+                        }
+                    }}
+                >
+                {gameOver? 'New Game' : 'New Word'}</button>
             </div>
         </div>
     )

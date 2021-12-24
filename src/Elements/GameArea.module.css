@@ -43,12 +43,14 @@ button {
     height: 2rem;
 }
 
-#letters > button {
+#letters > button, #gameOverBtn, form button {
     width: 2rem;
     border-radius: 50%;
-    background: transparent;
     border: 0.12rem solid rgb(var(--pen-color));
     color: rgb(var(--pen-color));
+    transition: all linear 0.05s;
+    transform-origin: center;
+    border-top: 0.12rem solid rgb(var(--pen-color));
 }
 
 #letters > button:disabled::before {
@@ -56,18 +58,26 @@ button {
     width: 3.2rem;
     border-top: 0.12rem solid rgb(var(--pen-color));
     transform:
+        scale(100%)
         translateY(1rem)
         translateX(-1.3rem)
         rotate(-45deg);
     position: absolute;
-    /* color: rgba(var(--pen-color),0.5);
-    text-decoration: rgb(var(--pen-color)); */
 }
 
-#letters > button:hover:not(:disabled), #letters > button:hover, button.best-guess {
-    border: 0.12rem solid rgb(var(--pen-color));
-    background: rgba(var(--pen-color));
-    color: ivory;
+#letters > button:hover:not(:disabled), 
+#letters > button:focus:not(:disabled),
+button.best-guess, 
+#gameOverBtn:hover, 
+form button:hover {
+    box-shadow: 3px 3px 0 rgba(var(--pen-color));
+    transform: scale(110%);
+}
+
+#letters > button:active:not(:disabled), #gameOverBtn:active, form button:active {
+    box-shadow: -3px -3px 0 5px rgba(var(--pen-color));
+    transform: scale(0.85) translate(3px, 3px);
+    background: hsla(48, 23%, 45%, 0.3);
 }
 
 object {
@@ -81,17 +91,49 @@ object {
 }
 
 #gameOverBtn, form button {
-    font: 2rem pen;
-    background: rgb(var(--pen-color));
-    color: ivory;
+    width: auto;
+    border-radius: 999px;
+    /* font: 2rem pen;
+    background: transparent;
+    color: rgb(var(--pen-color));
     border-radius: 1.5rem;
     padding: 0.5rem;
-    border: 0.12rem solid rgb(var(--pen-color));
+    cursor: pointer;
+    position: relative; */
 }
 
 #gameOverBtn:hover, form button:hover {
-    background: darkred;
+    /* border: 0.12rem solid darkred; */
+    color: darkred;
 }
+
+
+#gameOverBtn:hover, form button:hover, #gameOverBtn:active, form button:active {
+    border: 0.12rem solid darkred;
+    color: darkred;
+    box-shadow: 3px 3px 0 darkred;
+}
+
+#gameOverBtn:active, form button:active {
+    box-shadow: -3px -3px 0 5px darkred;
+}
+
+/* #gameOverBtn:before, form button:before {
+    content: '';
+    position: absolute;
+    inset: 0.75rem;
+    border: 1px solid transparent;
+    transition: all 0.5s;
+} */
+
+/* #gameOverBtn:hover:before, form button:hover:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid darkred;
+    border-radius: 999px;
+    box-shadow: 0 5px 15px rgba(163, 163, 152, 0.5);
+} */
 
 #left {
     position: relative;
@@ -103,45 +145,10 @@ object {
     width: 100%;
 }
 
-#winLose {
-    position: absolute;
-    background: linear-gradient(to bottom, lemonchiffon, hsl(54, 95%, 90%) 15%, hsl(54, 50%, 65%) 40%, hsl(54, 50%, 65%) 50%, hsl(54, 70%, 85%) 85%,  hsl(54, 60%, 80%) 90%, hsl(54, 50%, 65%) 100%);
-    padding: 1rem;
-    box-shadow: rgba(41, 41, 38, 0.508) 0 0.5rem 20px;
-    transform: rotate(-10deg);
-    transform-origin: left;
-    z-index: 10;
-    animation: transition 0.5s ease-out;
-    border-radius: 2em 1em 4em / 0.25em 3em;
-    animation: transition 0.5s ease-out;
-    animation-play-state: initial;
-}
-
-#winLose:active {
-    animation: transition 0.5s ease-out, transition 0.5s ease-out 0s 1 reverse forwards;
-    animation-play-state: paused, running;
-}
-
-#winLose > span {
-    font: bold 10rem pen;
-}
-
-#winLose > .won {
-    color: darkgreen;
-}
-
-#winLose > .lost {
-    color: darkred;
-}
-
-#winLose > span.showWord {
-    font: bold 2rem pen;
-}
-
 #guess > form > input {
     width: 2.5rem;
     font: 4rem pen;
-    padding: 0;
+    padding-bottom: 5px;
     margin: 0;
     box-sizing: border-box;
     border: 1px solid navy;
@@ -175,6 +182,14 @@ object {
     bottom: 0px;
     width: 1rem;
 
+}
+
+input {
+    cursor: pointer;
+}
+
+.selected {
+    cursor: not-allowed !important;
 }
 
 @keyframes dash {

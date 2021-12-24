@@ -1,5 +1,5 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react'
-import { getWord, getWordsArr } from '../API/main'
+import React, { useCallback, useState } from 'react'
+import { getWord } from '../API/main'
 import AutoHangman from './AutoHangman'
 import Main from './Main'
 
@@ -17,7 +17,7 @@ const Source = () => {
 
     const [gameOver, setGameOver] = useState(false)
 
-    const startup = () => {
+    const startup = useCallback(() => {
         setGameOver(false)
         setGuessed([])
         setGuessesLeft(10)
@@ -25,7 +25,7 @@ const Source = () => {
             setWord(w)
             setDisplayWord(w.replace(/[a-z]/ig,'_'))
         })
-    }
+    },[])
 
     const sourceProps = {
         guessesLeft,

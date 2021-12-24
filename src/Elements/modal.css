@@ -1,0 +1,38 @@
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-box {
+    min-width: 50%;
+    padding: 1em;
+    border-radius: 1em 0.5em / 5em 0.5em;
+    background: lightyellow;
+    font: 1.5em pen;
+    line-height: 1.5;
+    color: rgb(var(--pen-color));
+    position: fixed;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 10px 20px;
+    display: flex;
+    align-self: center;
+    flex-flow: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.exit {
+    position: absolute;
+    right: 0.75rem;
+    top: 0;
+    cursor: pointer;
+}
+
+.modal-box > * {
+    text-align: center;
+}

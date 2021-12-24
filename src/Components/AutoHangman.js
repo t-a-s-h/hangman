@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import GameArea from '../Elements/GameArea'
+import Modal from '../Elements/Modal'
 import { getAllWords } from '../API/main'
 import './auto.css'
 
@@ -29,6 +30,8 @@ const AutoHangman = ({
 
     const [autoGuess, setAutoGuess] = useState('none')
 
+    const [show, setShow] = useState(true)
+
     const startup = (numLetters) => {
         setGameOver(false)
         setWord(null)
@@ -38,6 +41,7 @@ const AutoHangman = ({
             setAllWords(w)
         })
         setDisplayWord('_'.repeat(numLetters))
+        setShow(true)
     }
 
     const mostCommonLetter = (arr) => {
@@ -62,14 +66,14 @@ const AutoHangman = ({
             }
         },'none')
         letters1.current?.[bestGuessLetter.toUpperCase().charCodeAt(0) - 65].classList.add('best-guess')
-        console.log(letters1,letters1.current?.[bestGuessLetter.toUpperCase().charCodeAt(0) - 65],bestGuessLetter.toUpperCase().charCodeAt(0) - 65)
+        // console.log(letters1,letters1.current?.[bestGuessLetter.toUpperCase().charCodeAt(0) - 65],bestGuessLetter.toUpperCase().charCodeAt(0) - 65)
         return bestGuessLetter
     }
 
     const bestGuess = (arr) => {
         const newArr = arr.filter(word => new RegExp('^'+displayWord?.replaceAll('_',guessed.length?`[^${guessed.join('')}]`: '.')+'$').test(word))        
         console.log(new RegExp('^'+displayWord?.replaceAll('_',guessed.length?`[^${guessed.join('')}]`: '.')+'$'))
-        console.log(newArr)
+        // console.log(newArr)
         return mostCommonLetter(newArr)
     }
                 
@@ -99,15 +103,17 @@ const AutoHangman = ({
         setGuessesLeft(guessesLeft - 1)
     }
 
-
     useEffect(()=>{  
         startup()
     },[])
+
+    // const { Modal, Consumer } = createContext();
 
     return (
         <div className="App">
 
             <GameArea
+                component = { component }
                 guessesLeft = { guessesLeft }
                 displayWord = { displayWord || '...' }
                 setDisplayWord = { setDisplayWord }
@@ -120,26 +126,32 @@ const AutoHangman = ({
                 word = { word }
                 numLetters = { numLetters.current }
                 letters = { letters1.current }
+                autoGuess = { autoGuess }
             />
-             <span className="is-in-word"> Is the letter { autoGuess?? ""} in the word?
-                <i className="yes"> &#x02713; </i>
-                <i className="no"> &times; </i>
-            </span>
-            <form ref={ letterform }className="letters" onSubmit={(e)=>{
-                e.preventDefault()
-                numLetters.current = parseInt(e.target.number.value)
-                startup(numLetters.current)
-                wordsArr.current = allWords.filter(word=> word.length === parseInt(e.target.number.value))
-                letterform.current.style.display = 'none'
-            }
-            }>
-                Pick a word, any word <small>(between 4 and 15 letters)</small>
-                <label>How many letters in the word? </label>
-                <div>
-                    <input name='number' type='number' defaultValue='4' min='4' max='15'/>
-                    <button type="submit">start</button>
-                </div>
-            </form>
+        
+            <Modal
+                setShow={setShow}
+                show={show}
+            >
+                <form ref={ letterform } onSubmit={(e)=>{
+                    e.preventDefault()
+                    numLetters.current = parseInt(e.target.number.value)
+                    startup(numLetters.current)
+                    wordsArr.current = allWords.filter(word=> word.length === parseInt(e.target.number.value))
+                    letterform.current.style.display = 'none'
+                    setShow(false)
+                }
+                }>
+
+                    Pick a word, any word <small>(between 4 and 15 letters)</small><br/>
+                    <label>How many letters in the word? </label>
+                    <div>
+                        <input name='number' type='number' defaultValue='4' min='4' max='15'/>
+                    </div>
+                    <button type='submit'>start</button>
+                
+                </form>
+            </Modal>
         </div>
     )
 }

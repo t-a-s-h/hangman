@@ -1,0 +1,60 @@
+@keyframes transition {
+  from {
+    border-radius: 0;
+    opacity: 0;
+    transform: 
+      scale(200%)
+      translate(0, -100%)
+      rotateZ(-90deg)
+
+  }
+  to {
+    opacity: 1;
+    transform: 
+      scale(100%)
+      translate(0, 0)
+      rotate(-10deg)
+  }
+}
+
+#winLose {
+    position: fixed;
+    /* align-self: flex-start; */
+    inset-inline: 0;
+    margin-inline: auto;
+    margin-block: auto;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    background: linear-gradient(to bottom, lemonchiffon, hsl(54, 95%, 90%) 15%, hsl(54, 50%, 65%) 40%, hsl(54, 50%, 65%) 50%, hsl(54, 70%, 85%) 85%,  hsl(54, 60%, 80%) 90%, hsl(54, 50%, 65%) 100%);
+    padding: 1rem;
+    box-shadow: rgba(41, 41, 38, 0.508) 0 0.5rem 20px;
+    transform: rotate(-10deg);
+    transform-origin: left;
+    z-index: 10;
+    animation: transition 0.5s ease-out;
+    border-radius: 2em 1em 4em / 0.25em 3em;
+    animation: transition 0.5s ease-out;
+    animation-play-state: initial;
+  }
+  
+  #winLose:active {
+    animation: transition 0.5s ease-out, transition 0.5s ease-out 0s 1 reverse forwards;
+    animation-play-state: paused, running;
+  }
+  
+  #winLose > span {
+    font: bold 10rem pen;
+  }
+  
+  #winLose > .won {
+    color: darkgreen;
+  }
+  
+  #winLose > .lost {
+    color: darkred;
+  }
+  
+  #winLose > span.showWord {
+    font: bold 2rem pen;
+  }

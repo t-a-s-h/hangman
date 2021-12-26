@@ -19,7 +19,8 @@ const GameArea = ({
     numLetters,
     autoGuess,
     gameOverBtnRef,
-    buttonStates
+    buttonStates,
+    setButtonStates
  }) => {
     return (
         <div id={styles.Guesses}>
@@ -53,6 +54,7 @@ const GameArea = ({
                     guessed = { guessed }
                 />
                 <button 
+                    className = { styles[buttonStates[' ']] }
                     ref={gameOverBtnRef}
                     id={styles.gameOverBtn} 
                     onClick={()=>{

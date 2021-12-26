@@ -90,7 +90,11 @@ const Main = ({
                     e.preventDefault()
                     const letter = document.querySelector(`#${e.key.toUpperCase()}`)
                     letter.click()
-                } else if (e.key.match(/ /)) gameOverBtnRef.current.click()
+                } else if (e.key.match(/ /)) {
+                    setButtonStates({...buttonStates,' ': ''})
+                    gameOverBtnRef.current.click()
+
+                }
             }}
         >
             <Score
@@ -121,6 +125,7 @@ const Main = ({
                 component = { component }
                 gameOverBtnRef = { gameOverBtnRef }
                 buttonStates = { buttonStates }
+                setButtonStates = { setButtonStates }
             />
         </div>
     )

@@ -17,9 +17,12 @@ const Source = () => {
 
     const [gameOver, setGameOver] = useState(false)
 
+    const [buttonStates, setButtonStates] = useState({})
+
     const startup = useCallback(() => {
         setGameOver(false)
         setGuessed([])
+        setButtonStates({})
         setGuessesLeft(10)
         getWord((w) => {
             setWord(w)
@@ -28,6 +31,8 @@ const Source = () => {
     },[])
 
     const sourceProps = {
+        buttonStates,
+        setButtonStates,
         guessesLeft,
         setGuessesLeft,
         guessed,

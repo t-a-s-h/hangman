@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState, memo } from 'react'
 import styles from './GameArea.module.css'
 import ChangeDisplay from './ChangeDisplay'
+import Letters from './Letters'
 import Hangman from './Hangman'
 
-const Guesses = ({ 
+const GameArea = ({ 
     guessesLeft, 
     displayWord,
     guess, 
@@ -16,37 +17,11 @@ const Guesses = ({
     setGuessed, 
     component, 
     numLetters,
-    letters,
     autoGuess,
-    gameOverBtnRef
+    gameOverBtnRef,
+    setButtonStates,
+    buttonStates
  }) => {
-
-    const GetLetters = () => {
-
-        return (
-            <div id={styles.letters}>
-            { [...Array(26)].map((item,i) => {
-                const letter = String.fromCharCode(i + 65)
-
-                return (
-                    <button 
-                        ref={ el => letters?.push(el)}
-                        key={i} 
-                        id={ letter }
-                        onClick={ () => {
-                                guess(letter) 
-                        }}
-                        disabled={ guessed.includes(letter.toLowerCase()) }
-                    >
-                        { letter }
-                    </button>
-                )
-            }) }
-            </div>
-        )
-    }
-
-
     return (
         <div id={styles.Guesses}>
             <div>
@@ -73,12 +48,15 @@ const Guesses = ({
                         <span key={ letter + i }>{ letter }</span>
                     )) }
                 </div>
-                <GetLetters />
+                <Letters 
+                    buttonStates = { buttonStates }
+                    guess = { guess }
+                    guessed = { guessed }
+                />
                 <button 
                     ref={gameOverBtnRef}
                     id={styles.gameOverBtn} 
                     onClick={()=>{
-                        // if (guessesLeft) setGameAborted(true)
                         if (component === 'main') {
                             setGameOver(true)
                             setGameWon(false)
@@ -93,6 +71,6 @@ const Guesses = ({
 }
 
 
-export default Guesses
+export default GameArea
 
 

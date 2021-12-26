@@ -1,10 +1,6 @@
-// import React, { useState, createContext } from 'react'
 import './modal.css'
 
 const Modal = ({children, setShow, show}) => {
-
-    // const [show, setShow] = useState(true)
-
     return (
         show && (
             <div onClick={()=>setShow(false)} className='modal'>

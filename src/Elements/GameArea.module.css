@@ -31,10 +31,6 @@
     box-sizing: border-box;
 }
 
-#letters {
-    margin-bottom: 2rem;
-}
-
 button {
     all: unset;
     font: 2rem pen;
@@ -43,7 +39,7 @@ button {
     height: 2rem;
 }
 
-#letters > button, #gameOverBtn, form button {
+#gameOverBtn, form button {
     width: 2rem;
     border-radius: 50%;
     border: 0.12rem solid rgb(var(--pen-color));
@@ -53,20 +49,6 @@ button {
     border-top: 0.12rem solid rgb(var(--pen-color));
 }
 
-#letters > button:disabled::before {
-    content: '';
-    width: 3.2rem;
-    border-top: 0.12rem solid rgb(var(--pen-color));
-    transform:
-        scale(100%)
-        translateY(1rem)
-        translateX(-1.3rem)
-        rotate(-45deg);
-    position: absolute;
-}
-
-#letters > button:hover:not(:disabled), 
-#letters > button:focus:not(:disabled),
 button.best-guess, 
 #gameOverBtn:hover, 
 form button:hover {
@@ -74,7 +56,10 @@ form button:hover {
     transform: scale(110%);
 }
 
-#letters > button:active:not(:disabled), #gameOverBtn:active, form button:active {
+#gameOverBtn.active, 
+#gameOverBtn:active, 
+form button.active,
+form button:active {
     box-shadow: -3px -3px 0 5px rgba(var(--pen-color));
     transform: scale(0.85) translate(3px, 3px);
     background: hsla(48, 23%, 45%, 0.3);
@@ -93,47 +78,30 @@ object {
 #gameOverBtn, form button {
     width: auto;
     border-radius: 999px;
-    /* font: 2rem pen;
-    background: transparent;
-    color: rgb(var(--pen-color));
-    border-radius: 1.5rem;
-    padding: 0.5rem;
-    cursor: pointer;
-    position: relative; */
 }
 
 #gameOverBtn:hover, form button:hover {
-    /* border: 0.12rem solid darkred; */
     color: darkred;
 }
 
 
-#gameOverBtn:hover, form button:hover, #gameOverBtn:active, form button:active {
+#gameOverBtn:hover,
+form button:hover,
+#gameOverBtn.active,
+#gameOverBtn:active,
+form button.active,
+form button:active {
     border: 0.12rem solid darkred;
     color: darkred;
     box-shadow: 3px 3px 0 darkred;
 }
 
-#gameOverBtn:active, form button:active {
+#gameOverBtn.active, 
+form button.active,
+#gameOverBtn:active, 
+form button:active {
     box-shadow: -3px -3px 0 5px darkred;
 }
-
-/* #gameOverBtn:before, form button:before {
-    content: '';
-    position: absolute;
-    inset: 0.75rem;
-    border: 1px solid transparent;
-    transition: all 0.5s;
-} */
-
-/* #gameOverBtn:hover:before, form button:hover:before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: 1px solid darkred;
-    border-radius: 999px;
-    box-shadow: 0 5px 15px rgba(163, 163, 152, 0.5);
-} */
 
 #left {
     position: relative;

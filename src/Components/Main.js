@@ -14,8 +14,12 @@ const Main = ({
     startup,
     gameOver,
     setGameOver,
-    component
+    component,
+    buttonStates,
+    setButtonStates
  }) => {
+
+    const letters = useRef([])
 
     const [gameWon, setGameWon] = useState(false)
 
@@ -33,7 +37,7 @@ const Main = ({
     }, [word, gameOver])
 
     const guess = (letter) => {
-    
+
         letter = letter.toLowerCase()
     
         if (guessed.includes(letter)) return
@@ -65,10 +69,7 @@ const Main = ({
         setAreGuessesLeft(!!guessesLeft)
     }, [guessesLeft])
 
-
-    console.log(areGuessesLeft.current)
     useEffect(() => {
-        console.log(areGuessesLeft)
         if (!areGuessesLeft || (word && (displayWord === word))) setGameOver(true)
     },[areGuessesLeft, word, displayWord, setGameOver])
 
@@ -80,11 +81,14 @@ const Main = ({
         <div 
             className='App spin-in'
             tabIndex='0'
+            onKeyDown={ (e) => {
+                const letter = e.key.toUpperCase()
+                setButtonStates({...buttonStates,[letter]:'active'})
+            }}
             onKeyUp={ (e) => {
                 if (e.key.match(/^[a-z]$/i)) {
                     e.preventDefault()
                     const letter = document.querySelector(`#${e.key.toUpperCase()}`)
-                    letter.classList.add('active')
                     letter.click()
                 } else if (e.key.match(/ /)) gameOverBtnRef.current.click()
             }}
@@ -106,6 +110,7 @@ const Main = ({
             <GameArea 
                 guessesLeft = { guessesLeft }
                 word = { word }
+                letters = { letters }
                 displayWord = { displayWord? displayWord : '...'}
                 guess = { guess }
                 guessed = { guessed }
@@ -115,6 +120,8 @@ const Main = ({
                 startup = { startup }
                 component = { component }
                 gameOverBtnRef = { gameOverBtnRef }
+                buttonStates = { buttonStates }
+                // setButtonStates = { setButtonStates }
             />
         </div>
     )

@@ -11,7 +11,9 @@ const AutoHangman = ({
     displayWord,
     setDisplayWord,
     setGameOver,
-    component
+    component,
+    setButtonStates,
+    buttonStates
     }) => {
 
     const letterform = useRef(null)
@@ -65,7 +67,7 @@ const AutoHangman = ({
                 return max
             }
         },'none')
-        letters1.current?.[bestGuessLetter.toUpperCase().charCodeAt(0) - 65].classList.add('best-guess')
+        letters1.current?.[bestGuessLetter.toUpperCase().charCodeAt(0) - 65]?.classList.add('best-guess')
         // console.log(letters1,letters1.current?.[bestGuessLetter.toUpperCase().charCodeAt(0) - 65],bestGuessLetter.toUpperCase().charCodeAt(0) - 65)
         return bestGuessLetter
     }
@@ -83,7 +85,6 @@ const AutoHangman = ({
 
     useEffect(() => {
         if (!(guessesLeft && (!displayWord || /_/.test(displayWord)))) {
-            console.log("look here", guessesLeft, displayWord)
             setGameOver(true)
         }
         if (!/_/.test(displayWord)) setWord(displayWord)
@@ -107,11 +108,8 @@ const AutoHangman = ({
         startup()
     },[])
 
-    // const { Modal, Consumer } = createContext();
-
     return (
         <div className="App">
-
             <GameArea
                 component = { component }
                 guessesLeft = { guessesLeft }
@@ -127,6 +125,8 @@ const AutoHangman = ({
                 numLetters = { numLetters.current }
                 letters = { letters1.current }
                 autoGuess = { autoGuess }
+                setButtonStates = { setButtonStates }
+                buttonStates = { buttonStates }
             />
         
             <Modal

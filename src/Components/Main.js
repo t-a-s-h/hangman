@@ -121,7 +121,6 @@ const Main = ({
                 component = { component }
                 gameOverBtnRef = { gameOverBtnRef }
                 buttonStates = { buttonStates }
-                // setButtonStates = { setButtonStates }
             />
         </div>
     )

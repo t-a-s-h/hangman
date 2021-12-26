@@ -19,7 +19,6 @@ const GameArea = ({
     numLetters,
     autoGuess,
     gameOverBtnRef,
-    setButtonStates,
     buttonStates
  }) => {
     return (
@@ -60,8 +59,9 @@ const GameArea = ({
                         if (component === 'main') {
                             setGameOver(true)
                             setGameWon(false)
-                            startup(numLetters)
-                        }
+                            startup()
+                        } 
+                        else startup(numLetters)
                     }}
                 >
                 {gameOver? 'New Game' : 'New Word'}</button>

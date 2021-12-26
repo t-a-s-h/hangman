@@ -35,14 +35,11 @@ button {
 
 #letters > button:disabled::before {
     content: '';
-    /* width: 3.2rem; */
-    /* border-top: 0.12rem solid rgb(var(--pen-color)); */
     transform:
         scale(100%)
         translateY(1rem)
         translateX(-1.3rem)
         rotate(-45deg);
-    /* position: absolute; */
 }
 
 #letters > button:hover:not(:disabled), 

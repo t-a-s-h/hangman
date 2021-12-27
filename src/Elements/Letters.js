@@ -10,10 +10,10 @@ const Letters = ({buttonStates, guess, guessed}) => (
                 <button 
                     key={i} 
                     id={ letter }
-                    className = { styles[buttonStates[letter]] }
+                    className={ styles[buttonStates[letter]] }
                     onClick={ (e) => {
-                            guess(letter)
-                    }}
+                        guess(letter)
+                    } }
                     disabled={ guessed.includes(letter.toLowerCase()) }
                 >
                     { letter }

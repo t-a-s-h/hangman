@@ -1,3 +1,21 @@
+header {
+  align-self: center;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+
+header h1:hover{
+  color: black;
+}
+
+header a {
+  text-decoration: none;
+}
+
+header.fade-out {
+  opacity: 0;
+}
+
 header { 
   top: 0;
   width: auto;

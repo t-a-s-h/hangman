@@ -7,7 +7,9 @@ import { Route } from "react-router-dom";
 
 const Source = () => {
     
-    const [guessesLeft, setGuessesLeft] = useState(10)
+    const totalGuesses = 10
+
+    const [guessesLeft, setGuessesLeft] = useState(totalGuesses)
     
     const [word, setWord] = useState(null)
     
@@ -23,7 +25,7 @@ const Source = () => {
         setGameOver(false)
         setGuessed([])
         setButtonStates({})
-        setGuessesLeft(10)
+        setGuessesLeft(totalGuesses)
         getWord((w) => {
             setWord(w)
             setDisplayWord(w.replace(/[a-z]/ig,'_'))
@@ -52,6 +54,7 @@ const Source = () => {
             <Route exact path="/game" key="main">
                 <Main 
                     { ...sourceProps }
+                    totalGuesses = { totalGuesses }
                     component = { 'main' }
                 />
             </Route>

@@ -1,16 +1,5 @@
 import axios from 'axios'
 
-// const site = baseURL
-
-// axios.create({
-//     baseURL: 'game',
-//     withCredentials: false,
-//     headers: {
-//         'Access-Control-Allow-Origin' : '*',
-//         'Access-Control-Allow-Methods':'GET',   
-//     }
-// })
-
 const getWord = (cb) => {
     axios.get('https://random-word-api.herokuapp.com/word?number=1&swear=0')
     .then(res => {

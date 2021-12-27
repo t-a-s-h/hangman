@@ -2,11 +2,11 @@
 
 #Guesses {
     width: auto;
-    margin: auto;
     position: relative;
     text-align: center;
     display: flex;
     align-items: center;
+    flex-basis: 100%;
 }
 
 #Guesses {
@@ -20,7 +20,11 @@
 
 #word_display {
     text-align: center;
-    margin-block: 2rem;
+}
+
+#word_display.auto {
+    position: relative;
+    height: 0;
 }
 
 #word_display > span {
@@ -39,7 +43,7 @@ button {
     height: 2rem;
 }
 
-#gameOverBtn, form button {
+#gameOverBtn, form button, button.auto_btn {
     width: 2rem;
     border-radius: 50%;
     border: 0.12rem solid rgb(var(--pen-color));
@@ -51,7 +55,8 @@ button {
 
 button.best-guess, 
 #gameOverBtn:hover, 
-form button:hover {
+form button:hover,
+button.auto_btn:hover {
     box-shadow: 3px 3px 0 rgba(var(--pen-color));
     transform: scale(110%);
 }
@@ -59,7 +64,8 @@ form button:hover {
 #gameOverBtn.active, 
 #gameOverBtn:active, 
 form button.active,
-form button:active {
+form button:active,
+button.auto_btn:active {
     box-shadow: -3px -3px 0 5px rgba(var(--pen-color));
     transform: scale(0.85) translate(3px, 3px);
     background: hsla(48, 23%, 45%, 0.3);
@@ -75,12 +81,12 @@ object {
     animation: dash 200ms linear forwards !important;
 }
 
-#gameOverBtn, form button {
+#gameOverBtn, form button, button.auto_btn {
     width: auto;
     border-radius: 999px;
 }
 
-#gameOverBtn:hover, form button:hover {
+#gameOverBtn:hover, form button:hover , button.auto_btn:hover{
     color: darkred;
 }
 
@@ -89,6 +95,7 @@ object {
 form button:hover,
 #gameOverBtn.active,
 #gameOverBtn:active,
+button.auto_btn:active,
 form button.active,
 form button:active {
     border: 0.12rem solid darkred;
@@ -98,7 +105,8 @@ form button:active {
 
 #gameOverBtn.active, 
 form button.active,
-#gameOverBtn:active, 
+#gameOverBtn:active,
+button.auto_btn:active, 
 form button:active {
     box-shadow: -3px -3px 0 5px darkred;
 }
@@ -109,8 +117,30 @@ form button:active {
     justify-items: center;
     align-items: center;
     flex-direction: column;
-    height: 100%;
+    /* height: 100%; */
     width: 100%;
+    margin-inline: 1em;
+}
+
+.isInWord {
+    font-size: 1.5em;
+}
+
+.auto_guess {
+    line-height: 1;
+    font-size: 1.5em;
+}
+
+.auto_guess ul {
+    display: flex;
+    gap: 1em;
+    padding: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.auto_guess ul > li {
+    list-style: '*';
 }
 
 #guess > form > input {
@@ -123,37 +153,36 @@ form button:active {
     text-align: center;
     vertical-align: baseline;
     visibility: visible;
+    z-index: 1;
 }
 
 #guess {
     text-align: center;
-    position: relative;
-    top: 7rem;
-}
-
-#guess > form {
-    position: relative;
-    left: 1.62rem;
 }
 
 #guess > form > input {
-    margin-top: -5rem;
     margin-inline: 0rem;
     border-radius: 5px;
     display: inline;
     position: relative;
     background: transparent;
+    margin-bottom: 0.1em;
 }
 
 #guess > form > button {
     position: relative;
     bottom: 0px;
-    width: 1rem;
+    display: block;
+    margin-inline: auto;
 
 }
 
 input {
     cursor: pointer;
+}
+
+.guessesLeft {
+    font-size: 1.5em;
 }
 
 .selected {

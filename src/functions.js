@@ -1,7 +1,5 @@
 const addTransition = (href,elname,animationname) => {
 
-    // console.log(effects)
-
     // const splash = document.querySelector('#Splash')
     const app = document.querySelector('.App')
     const anchor = document.querySelector(`a[href="${href}"]`)

@@ -15,6 +15,10 @@
     }
   }
 
+#hangman {
+   width: 15em;
+}
+
 ellipse, path {
    opacity: 1;
    fill: none;

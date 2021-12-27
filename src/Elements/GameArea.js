@@ -1,8 +1,9 @@
-import React, { useState, memo } from 'react'
+import React, { useState } from 'react'
 import styles from './GameArea.module.css'
 import ChangeDisplay from './ChangeDisplay'
 import Letters from './Letters'
 import Hangman from './Hangman'
+import AutoGuesses from './AutoGuesses'
 
 const GameArea = ({ 
     guessesLeft, 
@@ -20,39 +21,65 @@ const GameArea = ({
     autoGuess,
     gameOverBtnRef,
     buttonStates,
-    setButtonStates
+    totalGuesses,
+    word,
+    wordsArr
  }) => {
+
+    const [guessedCorrect, setGuessedCorrect] = useState(0)
+
     return (
         <div id={styles.Guesses}>
             <div>
                 <Hangman
+                    totalGuesses = {totalGuesses}
                     guessesLeft = {guessesLeft}
                 />
-                <div>Guesses left: {guessesLeft}</div>
+                <div className={styles.guessesLeft}>Guesses left: {guessesLeft}</div>
             </div>
             <div id={styles.left}>
+            <div>
                 <div id={styles.guess}>
+                    <div 
+                        id={styles.word_display} 
+                        className={component === 'auto' ? styles.auto : ''}
+                    >
+                        { [...displayWord].map((letter,i) => (
+                            <span key={ letter + i }>{ letter }</span>
+                        )) }
+                    </div>
                      { component === 'auto' &&
                         <ChangeDisplay
                             setDisplayWord = {setDisplayWord}
                             displayWord = {displayWord}
                             setGuessed = {setGuessed}
+                            guess = {guess}
                             guessed = {guessed}
                             autoGuess = {autoGuess}
+                            gameOver = { gameOver }
+                            guessedCorrect = { guessedCorrect }
+                            setGuessedCorrect = { setGuessedCorrect }
                         />
                     }
-                        
                 </div>
-                <div id={styles.word_display}>
-                    { [...displayWord].map((letter,i) => (
-                        <span key={ letter + i }>{ letter }</span>
-                    )) }
+                    {component === 'auto' && (!gameOver || wordsArr.current.length) &&
+                        <AutoGuesses
+                            setDisplayWord = { setDisplayWord }
+                            bestGuesses = { wordsArr.current }
+                            gameOver = { gameOver }
+                            setGameOver = { setGameOver }
+                            autoGuess = { autoGuess }
+                            guessedCorrect = { guessedCorrect }
+                            wordFound = {!!word}
+                        />}
                 </div>
-                <Letters 
-                    buttonStates = { buttonStates }
-                    guess = { guess }
-                    guessed = { guessed }
-                />
+                {component === 'main' && 
+                    <Letters 
+                        buttonStates = { buttonStates }
+                        guess = { guess }
+                        guessed = { guessed }
+                    />
+                }
                 <button 
                     className = { styles[buttonStates[' ']] }
                     ref={gameOverBtnRef}

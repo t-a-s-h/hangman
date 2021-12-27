@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import GameArea from '../Elements/GameArea'
 import Modal from '../Elements/Modal'
 import { getAllWords } from '../API/main'
@@ -30,25 +30,31 @@ const AutoHangman = ({
     const [guessed, setGuessed] = useState([])
     const [guessedIncorrect, setGuessedIncorrect] = useState([])
 
-    const [autoGuess, setAutoGuess] = useState('none')
+    const [autoGuess, setAutoGuess] = useState('')
 
     const [show, setShow] = useState(true)
 
-    const startup = (numLetters) => {
+    const totalGuesses = 10
+
+    const startup = useCallback((numLetters) => {
         setGameOver(false)
         setWord(null)
         setGuessed([])
-        setGuessesLeft(15)
+        setGuessesLeft(totalGuesses)
         getAllWords((w) => {
             setAllWords(w)
         })
         setDisplayWord('_'.repeat(numLetters))
         setShow(true)
-    }
+    },[setDisplayWord, setGameOver, setGuessesLeft])
 
-    const mostCommonLetter = (arr) => {
+    useEffect(()=>{  
+        startup()
+    },[startup])
+
+    const mostCommonLetter = useCallback((arr) => {
         const letters = ['e','a','r','i','o','t','n','s','l','c','u','d','p','m','h','g','b','f','y','w','k','v','x','z','j','q']
-        const contains = {none: -Infinity}
+        const contains = {'': -Infinity}
 
         arr.forEach(word => {
             return [...word].forEach(letter => {
@@ -66,21 +72,22 @@ const AutoHangman = ({
             } else {
                 return max
             }
-        },'none')
+        },'')
         letters1.current?.[bestGuessLetter.toUpperCase().charCodeAt(0) - 65]?.classList.add('best-guess')
         // console.log(letters1,letters1.current?.[bestGuessLetter.toUpperCase().charCodeAt(0) - 65],bestGuessLetter.toUpperCase().charCodeAt(0) - 65)
         return bestGuessLetter
-    }
+    },[guessed])
 
-    const bestGuess = (arr) => {
+    const bestGuess = useCallback((arr) => {
         const newArr = arr.filter(word => new RegExp('^'+displayWord?.replaceAll('_',guessed.length?`[^${guessed.join('')}]`: '.')+'$').test(word))        
         console.log(new RegExp('^'+displayWord?.replaceAll('_',guessed.length?`[^${guessed.join('')}]`: '.')+'$'))
-        // console.log(newArr)
+        wordsArr.current = newArr
         return mostCommonLetter(newArr)
-    }
+    },[guessed, displayWord, mostCommonLetter])
                 
     useEffect(()=> {
-        setAutoGuess(bestGuess(wordsArr.current))
+        if (!gameOver) setAutoGuess(bestGuess(wordsArr.current))
+        else setAutoGuess('')
     },[guessed, gameOver, bestGuess])
 
     useEffect(() => {
@@ -88,10 +95,7 @@ const AutoHangman = ({
             setGameOver(true)
         }
         if (!/_/.test(displayWord)) setWord(displayWord)
-    },[displayWord + guessesLeft])
-
-
-            
+    },[displayWord, guessesLeft, setGameOver])
                     
     const guess = (letter) => {
         letter = letter.toLowerCase()
@@ -104,10 +108,6 @@ const AutoHangman = ({
         setGuessesLeft(guessesLeft - 1)
     }
 
-    useEffect(()=>{  
-        startup()
-    },[])
-
     return (
         <div className="App">
             <GameArea
@@ -119,7 +119,6 @@ const AutoHangman = ({
                 guessed = { guessed }
                 setGuessed = { setGuessed }
                 startup = { startup }
-                component = { component }
                 gameOver = { gameOver }
                 word = { word }
                 numLetters = { numLetters.current }
@@ -127,6 +126,9 @@ const AutoHangman = ({
                 autoGuess = { autoGuess }
                 setButtonStates = { setButtonStates }
                 buttonStates = { buttonStates }
+                totalGuesses = { totalGuesses }
+                wordsArr = { wordsArr }
+                setGameOver = { setGameOver }
             />
         
             <Modal

@@ -16,7 +16,8 @@ const Main = ({
     setGameOver,
     component,
     buttonStates,
-    setButtonStates
+    setButtonStates,
+    totalGuesses
  }) => {
 
     const letters = useRef([])
@@ -126,6 +127,7 @@ const Main = ({
                 gameOverBtnRef = { gameOverBtnRef }
                 buttonStates = { buttonStates }
                 setButtonStates = { setButtonStates }
+                totalGuesses = {totalGuesses}
             />
         </div>
     )

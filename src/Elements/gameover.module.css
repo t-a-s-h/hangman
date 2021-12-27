@@ -18,11 +18,9 @@
 }
 
 #winLose {
-    position: fixed;
-    /* align-self: flex-start; */
-    inset-inline: 0;
-    margin-inline: auto;
-    margin-block: auto;
+    position: absolute;
+    inset: 0;
+    margin: auto;
     width: fit-content;
     height: fit-content;
     text-align: center;

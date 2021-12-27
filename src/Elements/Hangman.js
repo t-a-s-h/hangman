@@ -100,7 +100,7 @@ const Gallows = () => (
    </>
 )
 
-const Hangman = ({guessesLeft}) => {
+const Hangman = ({totalGuesses, guessesLeft}) => {
 
    const hangmanParts = [
       <Gallows key='gallows'/>,
@@ -118,14 +118,13 @@ const Hangman = ({guessesLeft}) => {
 
    return (
       <svg
-         height="480"
-         viewBox="0 0 151.52187 250.00001"
+         viewBox="0 0 152 250"
          version="1.1"
+         id="hangman"
       >
       <g
-         id="hangman"
          transform="translate(140.47568,-53.540357)">
-         {hangmanParts.slice(0,11-guessesLeft)}
+         {hangmanParts.slice(0,totalGuesses + 1 - guessesLeft)}
       </g>
    </svg>
 )}

@@ -3,7 +3,6 @@ import axios from 'axios'
 const getWord = (cb) => {
     axios.get('https://random-word-api.herokuapp.com/word?number=1&swear=0')
     .then(res => {
-        console.log(res.data)
         return cb(res.data[0])
     })
     .catch(e=>{
@@ -15,7 +14,6 @@ const getWord = (cb) => {
 const getWordsArr = (n,cb) => {
     axios.get(`https://random-word-api.herokuapp.com/word?number=${n}&swear=0`)
     .then(res => {
-        console.log(res)
         return cb(res.data)
     })
     .catch(e=>{

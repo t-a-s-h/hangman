@@ -13,46 +13,21 @@ const AutoHangman = ({
     setGameOver,
     component,
     setButtonStates,
-    buttonStates
     }) => {
-
-    const letterform = useRef(null)
-
-    const letters1 = useRef([])
                 
     const [word, setWord] = useState([null])
 
-    const [allWords, setAllWords] = useState([])
-
-    const numLetters = useRef(null)
+    const numLetters = useRef(4)
     
-    const wordsArr = useRef([])
+    const [bestGuesses, setBestGuesses] = useState({words:[], letter:''})
     const [guessed, setGuessed] = useState([])
     const [guessedIncorrect, setGuessedIncorrect] = useState([])
-
-    const [autoGuess, setAutoGuess] = useState('')
 
     const [show, setShow] = useState(true)
 
     const totalGuesses = 10
 
-    const startup = useCallback((numLetters) => {
-        setGameOver(false)
-        setWord(null)
-        setGuessed([])
-        setGuessesLeft(totalGuesses)
-        getAllWords((w) => {
-            setAllWords(w)
-        })
-        setDisplayWord('_'.repeat(numLetters))
-        setShow(true)
-    },[setDisplayWord, setGameOver, setGuessesLeft])
-
-    useEffect(()=>{  
-        startup()
-    },[startup])
-
-    const mostCommonLetter = useCallback((arr) => {
+    const mostCommonLetter = (arr) => {
         const letters = ['e','a','r','i','o','t','n','s','l','c','u','d','p','m','h','g','b','f','y','w','k','v','x','z','j','q']
         const contains = {'': -Infinity}
 
@@ -64,7 +39,7 @@ const AutoHangman = ({
     
         const arr1 = Object.keys(contains).filter(key => !guessed.includes(key))
 
-        const bestGuessLetter = arr1.reduce((max, curr) => {
+        return arr1.reduce((max, curr) => {
             if (!guessed.includes(curr) && contains[curr] > contains[max]) {
                 return curr
             } else if (!guessed.includes(curr) && contains[curr] === contains[max]) {
@@ -73,28 +48,48 @@ const AutoHangman = ({
                 return max
             }
         },'')
-        letters1.current?.[bestGuessLetter.toUpperCase().charCodeAt(0) - 65]?.classList.add('best-guess')
-        // console.log(letters1,letters1.current?.[bestGuessLetter.toUpperCase().charCodeAt(0) - 65],bestGuessLetter.toUpperCase().charCodeAt(0) - 65)
-        return bestGuessLetter
-    },[guessed])
 
-    const bestGuess = useCallback((arr) => {
-        const newArr = arr.filter(word => new RegExp('^'+displayWord?.replaceAll('_',guessed.length?`[^${guessed.join('')}]`: '.')+'$').test(word))        
-        console.log(new RegExp('^'+displayWord?.replaceAll('_',guessed.length?`[^${guessed.join('')}]`: '.')+'$'))
-        wordsArr.current = newArr
-        return mostCommonLetter(newArr)
-    },[guessed, displayWord, mostCommonLetter])
-                
+    }
+
+    const bestGuess = (arr) => {
+        return arr.filter(word => new RegExp('^'+displayWord?.replaceAll('_',guessed.length?`[^${guessed.join('')}]`: '.')+'$').test(word))        
+    }
+
+    const startup = useCallback((numLetters) => {
+        document.forms[0].reset()
+        setShow(true)
+        setGameOver(false)
+        setWord(null)
+        setGuessed([])
+        setGuessesLeft(totalGuesses)
+        getAllWords((w) => {
+            const words = w.filter(word => word.length === numLetters)
+            setBestGuesses({words: words, letter: mostCommonLetter(words)})
+        })
+        setDisplayWord('_'.repeat(numLetters))
+    },[setDisplayWord, setGameOver, setGuessesLeft])
+
+    useEffect(()=>{  
+        startup()
+    },[startup])
+            
+    
     useEffect(()=> {
-        if (!gameOver) setAutoGuess(bestGuess(wordsArr.current))
-        else setAutoGuess('')
-    },[guessed, gameOver, bestGuess])
+        if (!gameOver) {
+            const words = bestGuess(bestGuesses.words)
+            setBestGuesses({words: words, letter: mostCommonLetter(words)})
+        }
+    },[gameOver, guessed])
 
     useEffect(() => {
         if (!(guessesLeft && (!displayWord || /_/.test(displayWord)))) {
             setGameOver(true)
         }
-        if (!/_/.test(displayWord)) setWord(displayWord)
+        if (!/_/.test(displayWord) || !bestGuesses.words) {
+            setWord(displayWord)
+            setBestGuesses({words:[], letter:''})
+        }
+
     },[displayWord, guessesLeft, setGameOver])
                     
     const guess = (letter) => {
@@ -122,12 +117,12 @@ const AutoHangman = ({
                 gameOver = { gameOver }
                 word = { word }
                 numLetters = { numLetters.current }
-                letters = { letters1.current }
-                autoGuess = { autoGuess }
+                autoGuess = { bestGuesses.letter }
                 setButtonStates = { setButtonStates }
-                buttonStates = { buttonStates }
+                // buttonStates = { buttonStates }
                 totalGuesses = { totalGuesses }
-                wordsArr = { wordsArr }
+                bestGuesses = { bestGuesses.words }
+                setBestGuesses = { setBestGuesses }
                 setGameOver = { setGameOver }
             />
         
@@ -135,12 +130,10 @@ const AutoHangman = ({
                 setShow={setShow}
                 show={show}
             >
-                <form ref={ letterform } onSubmit={(e)=>{
+                <form onSubmit={(e)=>{
                     e.preventDefault()
                     numLetters.current = parseInt(e.target.number.value)
                     startup(numLetters.current)
-                    wordsArr.current = allWords.filter(word=> word.length === parseInt(e.target.number.value))
-                    letterform.current.style.display = 'none'
                     setShow(false)
                 }
                 }>

@@ -23,7 +23,8 @@ const GameArea = ({
     buttonStates,
     totalGuesses,
     word,
-    wordsArr
+    bestGuesses,
+    setBestGuesses
  }) => {
 
     const [guessedCorrect, setGuessedCorrect] = useState(0)
@@ -50,27 +51,28 @@ const GameArea = ({
                     </div>
                      { component === 'auto' &&
                         <ChangeDisplay
-                            setDisplayWord = {setDisplayWord}
-                            displayWord = {displayWord}
-                            setGuessed = {setGuessed}
-                            guess = {guess}
-                            guessed = {guessed}
-                            autoGuess = {autoGuess}
+                            setDisplayWord = { setDisplayWord }
+                            displayWord = { displayWord }
+                            setGuessed = { setGuessed }
+                            guess = { guess }
+                            guessed = { guessed }
+                            autoGuess = { autoGuess }
                             gameOver = { gameOver }
                             guessedCorrect = { guessedCorrect }
                             setGuessedCorrect = { setGuessedCorrect }
                         />
                     }
                 </div>
-                    {component === 'auto' && (!gameOver || wordsArr.current.length) &&
+                    {(component === 'auto' && (bestGuesses)) &&
                         <AutoGuesses
                             setDisplayWord = { setDisplayWord }
-                            bestGuesses = { wordsArr.current }
+                            bestGuesses = { bestGuesses }
+                            setBestGuesses = { setBestGuesses }
                             gameOver = { gameOver }
                             setGameOver = { setGameOver }
                             autoGuess = { autoGuess }
                             guessedCorrect = { guessedCorrect }
-                            wordFound = {!!word}
+                            word = { word }
                         />}
                 </div>
                 {component === 'main' && 
@@ -81,7 +83,7 @@ const GameArea = ({
                     />
                 }
                 <button 
-                    className = { styles[buttonStates[' ']] }
+                    className = { component = 'main' ? styles[buttonStates?.[' ']] : '' }
                     ref={gameOverBtnRef}
                     id={styles.gameOverBtn} 
                     onClick={()=>{

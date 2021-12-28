@@ -7,8 +7,10 @@ const AutoGuesses = ({
     setGameOver, 
     autoGuess, 
     setDisplayWord, 
-    wordFound, 
-    guessedCorrect}) => {
+    word, 
+    guessedCorrect,
+    setBestGuesses
+    }) => {
 
     const ToDisplay = () => {
         if (!gameOver && bestGuesses.length === 1) return (
@@ -22,22 +24,32 @@ const AutoGuesses = ({
             >Yes!
             </button>
             <button
+                onClick={()=>{
+                    setGameOver(true)
+                    setBestGuesses({words:[], letter:''})
+                }}
                 className={styles.auto_btn}
             >No?
             </button>
         </div>
         )
-        else if (gameOver && !wordFound) return (
+        else if (gameOver && bestGuesses.length) return (
             <div> I couldn't guess that word. These are my best guesses.
             <ul>
                 {bestGuesses.map(guess => <li key={guess}>{guess}</li>)}
             </ul>
             </div>)
-        else if (gameOver) return <div>I got it! The word is {bestGuesses[0]}!</div>
+        else if (word) return <div>I got it! The word is {word}!</div>
         else return (
             <div className={styles.isInWord}>
-                {autoGuess !== '' && <>Is the letter { autoGuess } in the word?</>}
-                <div>{!wordFound && <button className={styles.auto_btn} form={'change_display'} type='submit'>{guessedCorrect? 'done' : 'not there'}</button>}</div>
+                {bestGuesses.length? 
+                <>
+                    Is the letter { autoGuess } in the word?
+                    <div>{!word && <button className={styles.auto_btn} form={'change_display'} type='submit'>{guessedCorrect? 'done' : 'not there'}</button>}</div>
+                </> : 
+                gameOver? <> I don't know that word.</> :
+                <>...thinking...</>
+                }
             </div>
         )
     }

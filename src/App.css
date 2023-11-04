@@ -130,18 +130,18 @@ textarea {
 }
 
 .link {
-  transition: all 0.5s;
+  transition: all 0.5s ease-in-out;
   display: inline-block;
   width: 66%;
   font-size: 2rem;
   text-align: center;
   text-decoration: none;
   border-radius: 999px;
-  background-image: repeating-linear-gradient(-45deg, rgba(var(--pen-color),0.25) 0, rgba(var(--pen-color),0.25) 2px, transparent 2px, transparent 5px);
-  color: auto;
+  background-image: repeating-linear-gradient(-45deg, rgba(var(--pen-color),0.1) 0, rgba(var(--pen-color),0.1) 2px, transparent 2px, transparent 5px);
+  color: rgb(var(--pen-color));
   text-shadow: 2px 2px white;
 }
 
 .link:hover {
-  scale: 1.25;
+  scale: 1.1;
 }

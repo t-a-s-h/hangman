@@ -122,7 +122,7 @@ textarea {
 
 .options a {
   margin: 1rem;
-  /* color: var(--pen-color); */
+  color: rgb(var(--pen-color));
 }
 
 .options a:hover {

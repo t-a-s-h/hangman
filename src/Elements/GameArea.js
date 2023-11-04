@@ -10,39 +10,42 @@ const GameArea = ({
     displayWord,
     guess, 
     guessed, 
-    setGameOver,
-    gameOver, 
-    setGameWon,
+    gameStatus,
+    currentDisplayWord,
     startup, 
-    setDisplayWord, 
     setGuessed, 
     component, 
     numLetters,
     autoGuess,
+    setGameOver,
     gameOverBtnRef,
     buttonStates,
     totalGuesses,
     word,
+    setWord,
+    bestGuess,
     bestGuesses,
-    setBestGuesses
+    setBestGuesses,
  }) => {
 
     const [guessedCorrect, setGuessedCorrect] = useState(0)
 
     return (
+        <>
         <div id={styles.Guesses}>
-            <div>
-                <Hangman
-                    totalGuesses = {totalGuesses}
-                    guessesLeft = {guessesLeft}
-                />
-                <div className={styles.guessesLeft}>Guesses left: {guessesLeft}</div>
-            </div>
             <div id={styles.left}>
+            <div>
+            <Hangman
+                totalGuesses = {totalGuesses}
+                guessesLeft = {guessesLeft}
+            />
+            <div className={styles.guessesLeft}>Guesses left: {guessesLeft}</div>
+        </div>
             <div>
                 <div id={styles.guess}>
                     <div 
                         id={styles.word_display} 
+                        onClick={(e)=>e.target.focus()}
                         className={component === 'auto' ? styles.auto : ''}
                     >
                         { [...displayWord].map((letter,i) => (
@@ -51,28 +54,29 @@ const GameArea = ({
                     </div>
                      { component === 'auto' &&
                         <ChangeDisplay
-                            setDisplayWord = { setDisplayWord }
-                            displayWord = { displayWord }
+                            displayWord = { currentDisplayWord }
                             setGuessed = { setGuessed }
                             guess = { guess }
                             guessed = { guessed }
                             autoGuess = { autoGuess }
-                            gameOver = { gameOver }
                             guessedCorrect = { guessedCorrect }
                             setGuessedCorrect = { setGuessedCorrect }
+                            bestGuess = { bestGuess }
+                            bestGuesses = { bestGuesses }
                         />
                     }
                 </div>
-                    {(component === 'auto' && (bestGuesses)) &&
+                    {(component === 'auto' && bestGuesses) &&
                         <AutoGuesses
-                            setDisplayWord = { setDisplayWord }
+                            displayWord = { currentDisplayWord }
                             bestGuesses = { bestGuesses }
-                            setBestGuesses = { setBestGuesses }
-                            gameOver = { gameOver }
-                            setGameOver = { setGameOver }
                             autoGuess = { autoGuess }
                             guessedCorrect = { guessedCorrect }
+                            guessesLeft = { guessesLeft }
                             word = { word }
+                            setWord = { setWord }
+                            setBestGuesses = { setBestGuesses }
+                            setGameOver = { setGameOver }
                         />}
                 </div>
                 {component === 'main' && 
@@ -83,21 +87,21 @@ const GameArea = ({
                     />
                 }
                 <button 
-                    className = { component = 'main' ? styles[buttonStates?.[' ']] : '' }
+                    className = { `${styles.auto_btn}, ${component = 'main' ? styles[buttonStates?.[' ']] : ''}` }
                     ref={gameOverBtnRef}
                     id={styles.gameOverBtn} 
                     onClick={()=>{
                         if (component === 'main') {
-                            setGameOver(true)
-                            setGameWon(false)
+                            gameStatus.current = ('pending')
                             startup()
                         } 
                         else startup(numLetters)
                     }}
                 >
-                {gameOver? 'New Game' : 'New Word'}</button>
+                {gameStatus.current !== 'pending' ? 'New Game' : 'New Word'}</button>
             </div>
         </div>
+        </>
     )
 }
 

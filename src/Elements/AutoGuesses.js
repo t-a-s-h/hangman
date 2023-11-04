@@ -2,55 +2,60 @@ import React from 'react'
 import styles from './GameArea.module.css'
 
 const AutoGuesses = ({
-    bestGuesses, 
-    gameOver, 
     setGameOver, 
     autoGuess, 
-    setDisplayWord, 
+    displayWord,
     word, 
+    setWord,
+    guessesLeft,
     guessedCorrect,
-    setBestGuesses
+    bestGuesses,
+    setBestGuesses,
     }) => {
 
     const ToDisplay = () => {
-        if (!gameOver && bestGuesses.length === 1) return (
-            <div>Is the word {bestGuesses[0]}?
-            <button
-                className={styles.auto_btn}
-                onClick={()=>{
-                    setDisplayWord(bestGuesses[0])
-                    setGameOver(true)
-                }}
-            >Yes!
-            </button>
-            <button
-                onClick={()=>{
-                    setGameOver(true)
-                    setBestGuesses({words:[], letter:''})
-                }}
-                className={styles.auto_btn}
-            >No?
-            </button>
-        </div>
+        if (guessesLeft  && bestGuesses.length === 1 && ! (bestGuesses[0] === displayWord.current)) return (
+            <div className={styles.isInWord}>Is the word {bestGuesses[0]}?
+                <button
+                    className={styles.auto_btn}
+                    onClick={()=>{
+                        setGameOver(true)
+                        setBestGuesses({words: [bestGuesses[0]], letter: ''})
+                        setWord(bestGuesses[0])
+                        displayWord.current = bestGuesses[0]
+                    }}
+                >Yes!
+                </button>
+                <button
+                    className={styles.auto_btn}
+                    onClick={()=>{
+                        setGameOver(true)
+                        setBestGuesses({words: [], letter: ''})
+                    }}
+                >No?
+                </button>
+            </div>
         )
-        else if (gameOver && bestGuesses.length) return (
+        else if (bestGuesses[0] && (bestGuesses[0] === displayWord.current || bestGuesses[0] === word)) {
+            setWord(bestGuesses[0])
+            return <div className={styles.isInWord}>I got it! The word is { word }!</div>
+        }
+        else if (guessesLeft === 0  && bestGuesses.length) {
+            setGameOver(true)
+            return (
             <div> I couldn't guess that word. These are my best guesses.
             <ul>
                 {bestGuesses.map(guess => <li key={guess}>{guess}</li>)}
             </ul>
-            </div>)
-        else if (word) return <div>I got it! The word is {word}!</div>
-        else return (
+            </div>)}
+        else if (guessesLeft && bestGuesses.length) return (
             <div className={styles.isInWord}>
-                {bestGuesses.length? 
-                <>
                     Is the letter { autoGuess } in the word?
                     <div>{!word && <button className={styles.auto_btn} form={'change_display'} type='submit'>{guessedCorrect? 'done' : 'not there'}</button>}</div>
-                </> : 
-                gameOver? <> I don't know that word.</> :
-                <>...thinking...</>
-                }
             </div>
+        ) 
+        else return (
+            <div className={styles.isInWord}> Sorry, I don't know that word.</div> 
         )
     }
 

@@ -16,14 +16,15 @@
   }
 
 #hangman {
-   width: 15em;
+   overflow: visible;
+   width: 15rem;
 }
 
 ellipse, path {
    opacity: 1;
    fill: none;
    stroke: rgb(var(--pen-color));
-   stroke-width: 1.32292;
+   stroke-width: 3;
    stroke-linecap: round;
    stroke-linejoin: round;
    stroke-miterlimit: 4;

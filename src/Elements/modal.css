@@ -9,11 +9,11 @@
 }
 
 .modal-box {
-    min-width: 50%;
-    padding: 1em;
-    border-radius: 1em 0.5em / 5em 0.5em;
+    min-width: 30%;
+    padding: 1rem;
+    border-radius: 1rem 0.5rem / 5rem 0.5rem;
     background: lightyellow;
-    font: 1.5em pen;
+    font: 2rem pen;
     line-height: 1.5;
     color: rgb(var(--pen-color));
     position: fixed;
@@ -25,6 +25,14 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-around;
+}
+
+.modal-box input {
+    font-family: pen;
+    font-size: 2rem;
+    text-align: center;
+    border: none;
+    background: inherit;
 }
 
 .exit {

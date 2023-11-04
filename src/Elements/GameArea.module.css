@@ -6,17 +6,13 @@
     text-align: center;
     display: flex;
     align-items: center;
-    flex-basis: 100%;
+    justify-content: center;
+    height: fit-content;
 }
 
 #Guesses {
     transition: all 2s;
 }
-
-#Guesses > div {
-    position: relative;
-}
-
 
 #word_display {
     text-align: center;
@@ -36,14 +32,19 @@
 }
 
 button {
+    box-sizing: border-box;
     all: unset;
+    display: inline-block;
+    position: relative;
     font: 2rem pen;
-    margin: 0.5rem;
-    padding: 0.2rem;
-    height: 2rem;
+    margin: -0.5rem -1rem 2rem -1rem;
+    padding: 0.5rem 1rem 1rem 1rem;
+    height: 1.5rem;
+    font-weight: bold;
 }
 
 #gameOverBtn, form button, button.auto_btn {
+    margin-block: 0.25rem 0;
     width: 2rem;
     border-radius: 50%;
     border: 0.12rem solid rgb(var(--pen-color));
@@ -117,30 +118,37 @@ form button:active {
     justify-items: center;
     align-items: center;
     flex-direction: column;
-    /* height: 100%; */
+    min-height: 100%;
     width: 100%;
-    margin-inline: 1em;
+    margin-inline: 1rem;
 }
 
 .isInWord {
-    font-size: 1.5em;
+    font-size: 2rem;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+}
+
+.isInWord button {
+    margin-inline: 0.25rem;
 }
 
 .auto_guess {
     line-height: 1;
-    font-size: 1.5em;
+    font-size: 1.5rem;
 }
 
 .auto_guess ul {
     display: flex;
-    gap: 1em;
+    row-gap: 0.5rem;
+    column-gap: 1rem;
     padding: 0;
     flex-wrap: wrap;
     justify-content: center;
 }
 
 .auto_guess ul > li {
-    list-style: '*';
+    list-style: none;
 }
 
 #guess > form > input {
@@ -166,7 +174,7 @@ form button:active {
     display: inline;
     position: relative;
     background: transparent;
-    margin-bottom: 0.1em;
+    margin-bottom: 0.1rem;
 }
 
 #guess > form > button {
@@ -182,7 +190,9 @@ input {
 }
 
 .guessesLeft {
-    font-size: 1.5em;
+    font-size: 2rem;
+    position: relative;
+    top: 0.75rem;
 }
 
 .selected {

@@ -8,6 +8,7 @@
 :root {
   --guess_gap: 0.5s;
   --pen-color: 23, 0, 85;
+  font-size: 14.5px;
 }
 
 :root, #root {
@@ -17,33 +18,34 @@
 body {
   position: absolute;
   background: url('./plank-wood-texture-diffuse.jpeg'), burlywood;
-  background-position: center center;
+  background-position: center ;
   padding: 0;
   margin: 0;
   width: 100%;
   height: 100%;
   font-family: pen;
+  font-weight: bold;
   color: rgb(var(--pen-color));
-  line-height: 2em;
 }
 
 .App {
+  align-content: center;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  width: 90%;
-  min-width: 250px;
+  max-width: 80%;
   min-height: 100%;
   margin: auto;
   padding: 0;
-  line-height: 3em;
+  line-height: 4.03125rem;
   background: 
-    linear-gradient(to right, transparent 0, transparent 8em, #dc143c28 8em, #dc143c28 8.0625em, transparent 8.0625em),
-    linear-gradient(#fffffc 0, #fffffc 4.5em, transparent 4.5em, transparent),
-    repeating-linear-gradient(to bottom, transparent 0, transparent 2em, #00008036 2em, #00008036 2.0625em, transparent 2.0625em), 
-    linear-gradient(140deg, #fffffc 60%, #f0f0db 90%, #e0e0d1 100%)
-    #fffffc;
+      linear-gradient(to right, transparent 0, transparent 80px, #dc143c28 80px, #dc143c28 81px, transparent 81px),
+      linear-gradient(#fffffc 0, #fffffc 40px, transparent 40px, transparent),
+      repeating-linear-gradient(to bottom, transparent 0, transparent 30px, #00008036 30px, #00008036 31px, transparent 31px), 
+      linear-gradient(140deg, #fffffc 60%, #f0f0db 90%, #e0e0d1 100%)
+      #fffffc;
   background-position: 0 0,0 0, 0 0;
-  box-shadow: rgba(0, 0, 0, 0.535) 2px 2px 30px;
+  box-shadow: rgba(0, 0, 0, 0.535) 0.125rem 0.125rem 30px;
   position: relative;
 }
 
@@ -97,6 +99,8 @@ textarea {
 
   .App {
     width: 100%;
+    flex-direction: row;
+    min-height: 100%;
   }
 
   .App > * {
@@ -105,6 +109,39 @@ textarea {
 
   svg {
     height: 50vh;
+    overflow: visible;
   }
   
+}
+
+.options {
+  text-align: center;
+  font-size: 2.5rem;
+  margin: auto;
+}
+
+.options a {
+  margin: 1rem;
+  /* color: var(--pen-color); */
+}
+
+.options a:hover {
+  color: darkred;
+}
+
+.link {
+  transition: all 0.5s;
+  display: inline-block;
+  width: 66%;
+  font-size: 2rem;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 999px;
+  background-image: repeating-linear-gradient(-45deg, rgba(var(--pen-color),0.25) 0, rgba(var(--pen-color),0.25) 2px, transparent 2px, transparent 5px);
+  color: auto;
+  text-shadow: 2px 2px white;
+}
+
+.link:hover {
+  scale: 1.25;
 }

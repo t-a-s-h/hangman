@@ -1,17 +1,12 @@
 #letters {
-    margin-bottom: 2rem;
-}
-
-button {
-    all: unset;
-    font: 2rem pen;
-    margin: 0.5rem;
-    padding: 0.2rem;
-    height: 2rem;
+    max-width: 50rem;
 }
 
 #letters > button {
-    width: 2rem;
+    width: 0.8rem;
+    height: 1.2rem;
+    margin-inline: 0.1rem;
+    margin-block: 0.2rem;
     border-radius: 50%;
     border: 0.12rem solid rgb(var(--pen-color));
     color: rgb(var(--pen-color));
@@ -51,6 +46,6 @@ button {
 #letters > button.active:not(:disabled),
 #letters > button:active:not(:disabled) {
     box-shadow: -3px -3px 0 5px rgba(var(--pen-color));
-    transform: scale(0.85) translate(3px, 3px);
+    transform: scale(0.85) translate(0.1875rem, 0.1875rem);
     background: hsla(48, 23%, 45%, 0.3);
 }

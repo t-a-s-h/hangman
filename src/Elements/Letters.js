@@ -5,7 +5,6 @@ const Letters = ({buttonStates, guess, guessed}) => (
     <div id={styles.letters}>
         {[...Array(26)].map((_,i) => {
             const letter = String.fromCharCode(i + 65)
-
             return (
                 <button 
                     key={i} 

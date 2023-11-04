@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react'
-import { getWord } from '../API/main'
+import React, { useRef, useState } from 'react'
+import { getWord } from '../functions/main'
 import AutoHangman from './AutoHangman'
 import Main from './Main'
 
@@ -10,27 +10,21 @@ const Source = () => {
     const totalGuesses = 10
 
     const [guessesLeft, setGuessesLeft] = useState(totalGuesses)
-    
-    const [word, setWord] = useState(null)
-    
+        
     const [guessed, setGuessed] = useState([])
     
-    const [displayWord, setDisplayWord] = useState(null)
+    const gameStatus = useRef('')
 
     const [gameOver, setGameOver] = useState(false)
 
     const [buttonStates, setButtonStates] = useState({})
 
-    const startup = useCallback(() => {
+    const startup = () => {
         setGameOver(false)
         setGuessed([])
         setButtonStates({})
         setGuessesLeft(totalGuesses)
-        getWord((w) => {
-            setWord(w)
-            setDisplayWord(w.replace(/[a-z]/ig,'_'))
-        })
-    },[])
+    }
 
     const sourceProps = {
         buttonStates,
@@ -39,10 +33,7 @@ const Source = () => {
         setGuessesLeft,
         guessed,
         setGuessed,
-        word,
-        setWord,
-        displayWord,
-        setDisplayWord,
+        gameStatus,
         getWord,
         startup,
         gameOver,
@@ -53,7 +44,6 @@ const Source = () => {
         <>
             <Route exact path="/game" key="main">
                 <Main 
-                    { ...sourceProps }
                     totalGuesses = { totalGuesses }
                     component = { 'main' }
                 />

@@ -2,81 +2,77 @@ import React, { useEffect, useState, useRef } from 'react'
 import GameArea from '../Elements/GameArea'
 import Score from '../Elements/Score'
 import GameOver from '../Elements/GameOver'
+import { getWord } from '../functions/main'
 
 const Main = ({         
-    guessesLeft,
-    setGuessesLeft,
-    guessed,
-    setGuessed,
-    word,
-    displayWord,
-    setDisplayWord,
-    startup,
-    gameOver,
-    setGameOver,
-    component,
-    buttonStates,
-    setButtonStates,
     totalGuesses
  }) => {
 
+    const guessesLeft = useRef(totalGuesses)
+    
+    const word = useRef(null)
+    
+    const [guessed, setGuessed] = useState([])
+    
+    const displayWord = useRef(null)
+
+    const [buttonStates, setButtonStates] = useState({})
+
     const letters = useRef([])
 
-    const [gameWon, setGameWon] = useState(false)
+    const gameStatus = useRef('pending')
 
     const gameOverBtnRef = useRef(null)
+
+    const startup = () => {
+        gameStatus.current = 'pending'
+        setGuessed([])
+        setButtonStates({})
+        guessesLeft.current = (totalGuesses)
+        const w = getWord()
+        word.current = (w)
+        displayWord.current = (w.replace(/[a-z]/ig,'_'))
+    }
 
     useEffect(() => {
         document.querySelector('.App').focus()
         startup()
-    },[startup])
-    
-    const wordRef = useRef(null)
-
-    useEffect(() => {
-        if (!gameOver) wordRef.current = word
-    }, [word, gameOver])
+    },[])
 
     const guess = (letter) => {
 
         letter = letter.toLowerCase()
     
         if (guessed.includes(letter)) return
-        if (displayWord === word) return
-        if (!guessesLeft) return
     
         setGuessed([...guessed, letter])    
     
-        if (word && word.includes(letter)) {
-            const newDisplay = displayWord.split('').map((displayed,i) => {
-                if (word[i] === letter) {
+        if (word.current && word.current.includes(letter)) {
+            const newDisplay = displayWord.current.split('').map((displayed,i) => {
+                if (word.current[i] === letter) {
                     return letter
                 }
                 else return displayed
             }).join('')
     
-            setDisplayWord(newDisplay)
+            displayWord.current = (newDisplay)
         } 
     
         else {
-            setGuessesLeft(guessesLeft - 1)
+            guessesLeft.current = (guessesLeft.current - 1)
         }
+
+        if (displayWord.current === word.current) {
+            gameStatus.current = ('won')
+            return
+        }
+        if (!guessesLeft.current) {
+            gameStatus.current = ('lost')
+            return
+        }
+
         document.querySelector('.App').focus()
     }
-
-    const [areGuessesLeft,setAreGuessesLeft] = useState(!!guessesLeft)
-
-    useEffect(() => {
-        setAreGuessesLeft(!!guessesLeft)
-    }, [guessesLeft])
-
-    useEffect(() => {
-        if (!areGuessesLeft || (word && (displayWord === word))) setGameOver(true)
-    },[areGuessesLeft, word, displayWord, setGameOver])
-
-    useEffect(() => {
-        if (word === displayWord && gameOver) setGameWon(true)
-    }, [gameOver, word, displayWord])
 
     return (
         <div 
@@ -98,32 +94,29 @@ const Main = ({
                 }
             }}
         >
+            <a className='link' href='/auto'>Have the computer guess instead</a>
             <Score
-                areGuessesLeft = { areGuessesLeft }
                 guessesLeft = { guessesLeft }
-                gameOver = { gameOver }
-                gameWon = { gameWon }
+                gameStatus = { gameStatus }
                 displayWord = { displayWord } 
                 word = { word }
             />
             <GameOver
-                gameWon = { gameWon }
+                gameStatus = { gameStatus }
                 displayWord = { displayWord }
-                word = { wordRef.current }
-                gameOver = { gameOver }
+                word = { word }
+                startup = { startup }
             />
             <GameArea 
-                guessesLeft = { guessesLeft }
+                guessesLeft = { guessesLeft.current }
                 word = { word }
                 letters = { letters }
-                displayWord = { displayWord? displayWord : '...'}
+                displayWord = { displayWord.current || '...'}
                 guess = { guess }
                 guessed = { guessed }
-                gameOver = { gameOver }
-                setGameOver = { setGameOver }
-                setGameWon = { setGameWon }
+                gameStatus = { gameStatus }
                 startup = { startup }
-                component = { component }
+                component = { 'main' }
                 gameOverBtnRef = { gameOverBtnRef }
                 buttonStates = { buttonStates }
                 setButtonStates = { setButtonStates }

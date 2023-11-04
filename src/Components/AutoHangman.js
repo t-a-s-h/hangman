@@ -1,23 +1,26 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import GameArea from '../Elements/GameArea'
 import Modal from '../Elements/Modal'
-import { getAllWords } from '../API/main'
+import { getAllWords } from '../functions/main'
 import './auto.css'
 
 const AutoHangman = ({
-    gameOver,
     guessesLeft,
     setGuessesLeft,
-    displayWord,
-    setDisplayWord,
-    setGameOver,
+    gameStatus,
     component,
     setButtonStates,
     }) => {
-                
+
+    const defaultNumLetters = 4
+                    
     const [word, setWord] = useState([null])
 
-    const numLetters = useRef(4)
+    const displayWord = useRef('')
+
+    const [gameOver, setGameOver] = useState(false)
+
+    const numLetters = useRef(defaultNumLetters)
     
     const [bestGuesses, setBestGuesses] = useState({words:[], letter:''})
     const [guessed, setGuessed] = useState([])
@@ -52,82 +55,72 @@ const AutoHangman = ({
     }
 
     const bestGuess = (arr) => {
-        return arr.filter(word => new RegExp('^'+displayWord?.replaceAll('_',guessed.length?`[^${guessed.join('')}]`: '.')+'$').test(word))        
+        return arr.filter(word => new RegExp('^'+displayWord.current?.replaceAll('_',guessed.length?`[^${guessed.join('')}]`: '.')+'$').test(word))        
     }
 
-    const startup = useCallback((numLetters) => {
+    const startup = (numLetters) => {
         document.forms[0].reset()
         setShow(true)
         setGameOver(false)
         setWord(null)
         setGuessed([])
         setGuessesLeft(totalGuesses)
-        getAllWords((w) => {
-            const words = w.filter(word => word.length === numLetters)
-            setBestGuesses({words: words, letter: mostCommonLetter(words)})
-        })
-        setDisplayWord('_'.repeat(numLetters))
-    },[setDisplayWord, setGameOver, setGuessesLeft])
-
-    useEffect(()=>{  
-        startup()
-    },[startup])
-            
+        const w = getAllWords()
+        const words = w.filter(word => word.length === numLetters)
+        setBestGuesses({words: words, letter: mostCommonLetter(words)})
+        displayWord.current = ('_'.repeat(numLetters))
+    }       
     
     useEffect(()=> {
-        if (!gameOver) {
-            const words = bestGuess(bestGuesses.words)
-            setBestGuesses({words: words, letter: mostCommonLetter(words)})
+        const words = bestGuess(bestGuesses.words)
+        if (! gameOver) {
+            const letter = mostCommonLetter(words)
+            setBestGuesses({words: words, letter: letter })
+        }
+        else {
+            setBestGuesses({words: words, letter: '' })
         }
     },[gameOver, guessed])
 
-    useEffect(() => {
-        if (!(guessesLeft && (!displayWord || /_/.test(displayWord)))) {
-            setGameOver(true)
-        }
-        if (!/_/.test(displayWord) || !bestGuesses.words) {
-            setWord(displayWord)
-            setBestGuesses({words:[], letter:''})
-        }
-
-    },[displayWord, guessesLeft, setGameOver])
-                    
     const guess = (letter) => {
         letter = letter.toLowerCase()
     
         if (guessed.includes(letter)) return
         if (!guessesLeft) return
-    
+        if (gameOver) return
+
         setGuessed([...guessed, letter])
         setGuessedIncorrect([...guessedIncorrect,letter])
         setGuessesLeft(guessesLeft - 1)
     }
 
     return (
-        <div className="App">
+        <div className="App spin-in">
+            <a className='link' href='/game'>You guess the word next time</a>
             <GameArea
                 component = { component }
                 guessesLeft = { guessesLeft }
-                displayWord = { displayWord || '...' }
-                setDisplayWord = { setDisplayWord }
+                currentDisplayWord = { displayWord }
+                displayWord = { displayWord.current || '...' }
                 guess = { guess }
                 guessed = { guessed }
+                setGameOver = { setGameOver }
                 setGuessed = { setGuessed }
                 startup = { startup }
                 gameOver = { gameOver }
                 word = { word }
+                setWord = { setWord }
                 numLetters = { numLetters.current }
                 autoGuess = { bestGuesses.letter }
                 setButtonStates = { setButtonStates }
-                // buttonStates = { buttonStates }
                 totalGuesses = { totalGuesses }
+                bestGuess = { bestGuess }
                 bestGuesses = { bestGuesses.words }
                 setBestGuesses = { setBestGuesses }
-                setGameOver = { setGameOver }
+                gameStatus = { gameStatus }
             />
         
             <Modal
-                setShow={setShow}
                 show={show}
             >
                 <form onSubmit={(e)=>{
@@ -138,7 +131,7 @@ const AutoHangman = ({
                 }
                 }>
 
-                    Pick a word, any word <small>(between 4 and 15 letters)</small><br/>
+                    Pick a word <small>(between 4 and 15 letters)</small><br/>
                     <label>How many letters in the word? </label>
                     <div>
                         <input name='number' type='number' defaultValue='4' min='4' max='15'/>

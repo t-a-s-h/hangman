@@ -1,11 +1,11 @@
 .score {
     line-height: 1;
-    margin: 1em;
+    margin: 1rem 1rem 0.25rem 0;
     max-width: 100%;
     margin-left: auto;
-    width: 5em;
+    width: 5rem;
     min-width: fit-content;
-    font-size: 1.5em;
+    font-size: 1.5rem;
 }
 
 .score > span {
@@ -15,5 +15,5 @@
 }
 
 .score > span > span:first-of-type {
-    margin-right: 0.5em;
+    margin-right: 0.5rem;
 }

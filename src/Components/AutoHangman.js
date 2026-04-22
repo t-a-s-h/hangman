@@ -20,7 +20,7 @@ const AutoHangman = ({
 
     const [gameOver, setGameOver] = useState(false)
 
-    const numLetters = useRef(defaultNumLetters)
+    const numLetters = useState(defaultNumLetters)
     
     const [bestGuesses, setBestGuesses] = useState({words:[], letter:''})
     const [guessed, setGuessed] = useState([])
@@ -69,7 +69,24 @@ const AutoHangman = ({
         const words = w.filter(word => word.length === numLetters)
         setBestGuesses({words: words, letter: mostCommonLetter(words)})
         displayWord.current = ('_'.repeat(numLetters))
-    }       
+    }    
+    
+    useEffect(()=> {
+
+        onkeydown = (e) => {
+            if (e.key.match(/^[4-90]$/)) {
+                e.preventDefault()
+                document.getElementById(`button-${e.key}`).classList.add('is_pressed')
+            }
+        }
+        
+        onkeyup = (e) => {
+            if (e.key.match(/^[4-90]$/)) {
+                e.preventDefault()
+                document.getElementById(`button-${e.key}`).click()
+            }
+        }
+    })
     
     useEffect(()=> {
         const words = bestGuess(bestGuesses.words)
@@ -96,7 +113,7 @@ const AutoHangman = ({
 
     return (
         <div className="App spin-in">
-            <a className='link' href='/game'>You guess the word next time</a>
+            {/* <Link className='link' to='/game'>You guess the word next time</Link> */}
             <GameArea
                 component = { component }
                 guessesLeft = { guessesLeft }
@@ -110,7 +127,7 @@ const AutoHangman = ({
                 gameOver = { gameOver }
                 word = { word }
                 setWord = { setWord }
-                numLetters = { numLetters.current }
+                numLetters = { numLetters }
                 autoGuess = { bestGuesses.letter }
                 setButtonStates = { setButtonStates }
                 totalGuesses = { totalGuesses }
@@ -125,19 +142,18 @@ const AutoHangman = ({
             >
                 <form onSubmit={(e)=>{
                     e.preventDefault()
-                    numLetters.current = parseInt(e.target.number.value)
+                    console.log(e.target,e.currentTarget)
+                    // numLetters.current = parseInt(e.currentTarget.innerText)
                     startup(numLetters.current)
                     setShow(false)
                 }
                 }>
-
-                    Pick a word <small>(between 4 and 15 letters)</small><br/>
-                    <label>How many letters in the word? </label>
+                    <label>How many letters in your word? </label>
                     <div>
-                        <input name='number' type='number' defaultValue='4' min='4' max='15'/>
-                    </div>
-                    <button type='submit'>start</button>
-                
+                        {[4,5,6,7,8,9,10].map(el=> {
+                            return <button id={`button-${el === 10 ? 0 : el}`} key={el} onClick={()=>numLetters.current = parseInt(el)} type='submit'>{el}</button>
+                        })}
+                    </div>                
                 </form>
             </Modal>
         </div>

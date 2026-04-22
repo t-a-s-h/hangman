@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import { getWord } from '../functions/main'
 import AutoHangman from './AutoHangman'
 import Main from './Main'
+import Options from './Options';
 
 import { Route } from "react-router-dom";
 
@@ -52,6 +53,10 @@ const Source = () => {
                 <AutoHangman
                     { ...sourceProps }
                     component = { 'auto' }
+                />
+            </Route>
+            <Route exact path="/options" key="options">
+                <Options 
                 />
             </Route>
         </>

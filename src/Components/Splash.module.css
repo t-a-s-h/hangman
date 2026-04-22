@@ -1,5 +1,6 @@
+
+
 header {
-  align-self: center;
   opacity: 1;
   transition: opacity 1s ease-out;
 }
@@ -23,6 +24,17 @@ header {
   margin: 0 auto;
   position: relative;
   font-size: 12vw;
+}
+
+a {
+  all: unset;
+  cursor: pointer;
+}
+
+.splash_link {
+  justify-self: unset;
+  position: relative;
+  top: 20vh;
 }
 
 h1 {
@@ -51,24 +63,36 @@ h1 > span > span {
   font-family: pen;
 } 
 
-h1 > span:nth-child(2) > span, h1 span:nth-child(6) > span{
+.has_focus h1 > span > span.a {
   animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 2);
 }
 
-h1 > span:nth-child(5) > span {
+.has_focus h1 > span > span.m {
   animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 3);
 }
 
-h1 > span:nth-child(3) > span, h1 span:nth-child(7) > span {
+.has_focus h1 > span > span.n {
   animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 4);
 }
 
-h1 > span:nth-child(1) > span {
+.has_focus > h1 span span.h {
   animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 5);
 }
 
-h1 > span:nth-child(4) > span {
+.has_focus h1 > span > span.g {
   animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 6);
+}
+
+.has_focus h1 > span > span.o {
+  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 7);
+}
+
+.has_focus h1 > span > span.u {
+  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 8);
+}
+
+.has_focus h1 > span > span.t {
+  animation: show-splash-letter var(--guess_gap) ease forwards calc(var(--guess_gap) * 9);
 }
 
  @keyframes show-splash-letter {

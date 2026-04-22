@@ -50,8 +50,8 @@ const AutoGuesses = ({
             </div>)}
         else if (guessesLeft && bestGuesses.length) return (
             <div className={styles.isInWord}>
-                    Is the letter { autoGuess } in the word?
-                    <div>{!word && <button className={styles.auto_btn} form={'change_display'} type='submit'>{guessedCorrect? 'done' : 'not there'}</button>}</div>
+                    Is '{ autoGuess }' in the word?
+                    <div>{!word && <button className={styles.auto_btn} form={'change_display'} type='submit'>{guessedCorrect? 'done' : 'not in word'}</button>}</div>
             </div>
         ) 
         else return (

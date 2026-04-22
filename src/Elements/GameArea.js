@@ -16,6 +16,7 @@ const GameArea = ({
     setGuessed, 
     component, 
     numLetters,
+    setNumLetters,
     autoGuess,
     setGameOver,
     gameOverBtnRef,
@@ -32,14 +33,14 @@ const GameArea = ({
 
     return (
         <>
-        <div id={styles.Guesses}>
+        <div id={styles.Guesses} className={styles[`${component}`]}>
             <div id={styles.left}>
             <div>
             <Hangman
                 totalGuesses = {totalGuesses}
                 guessesLeft = {guessesLeft}
             />
-            <div className={styles.guessesLeft}>Guesses left: {guessesLeft}</div>
+            <div className={styles.guessesLeft}>You have {guessesLeft} mistake{guessesLeft === 1 ? '' : 's'} left!</div>
         </div>
             <div>
                 <div id={styles.guess}>

@@ -14,6 +14,10 @@
     transition: all 2s;
 }
 
+#Guesses.auto {
+    top: 4.5em;
+}
+
 #word_display {
     text-align: center;
 }
@@ -57,6 +61,7 @@ button {
 button.best-guess, 
 #gameOverBtn:hover, 
 form button:hover,
+form button:focus,
 button.auto_btn:hover {
     box-shadow: 3px 3px 0 rgba(var(--pen-color));
     transform: scale(110%);

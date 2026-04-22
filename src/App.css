@@ -29,7 +29,7 @@ body {
 }
 
 .App {
-  align-content: center;
+  align-items: center;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -118,6 +118,7 @@ textarea {
   text-align: center;
   font-size: 2.5rem;
   margin: auto;
+  justify-content: center;
 }
 
 .options a {

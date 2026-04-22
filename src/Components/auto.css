@@ -31,3 +31,9 @@ button.best-guess {
     background: rgba(var(--pen-color)) !important;
     color: ivory !important;
 }
+
+form button.is_pressed {
+    box-shadow: -3px -3px 0 5px rgba(var(--pen-color));
+    transform: scale(0.85) translate(3px, 3px);
+    background: hsla(48, 23%, 45%, 0.3);
+}

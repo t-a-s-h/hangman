@@ -90,11 +90,10 @@ const Main = ({
                 } else if (e.key.match(/ /)) {
                     setButtonStates({...buttonStates,' ': ''})
                     gameOverBtnRef.current.click()
-
                 }
             }}
         >
-            <a className='link' href='/auto'>Have the computer guess instead</a>
+            {/* <Link className='link' to='/auto'>Have the computer guess instead</Link> */}
             <Score
                 guessesLeft = { guessesLeft }
                 gameStatus = { gameStatus }
